@@ -1,5 +1,5 @@
-const { testFunc } = require("../src/testExample");
 const assert = require("assert");
+const { testFunc } = require("../src/testExample");
 
 describe("testFunc", () => {
   it("should pass this test on GitHub actions", () => {

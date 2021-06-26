@@ -14,7 +14,7 @@
   },
   "plugins": [],
   "rules": {
-    "quotes": "error",
+    "quotes": "off",
     "no-console": "off"
   }
 }

@@ -11,9 +11,4 @@ describe("testFunc", () => {
     const result = testFunc(2, 2);
     assert.notEqual(5, result);
   });
-
-  it("should NOT pass this test on GitHub actions", () => {
-    const result = testFunc(2, 2);
-    assert.notEqual(4, result);
-  });
 });

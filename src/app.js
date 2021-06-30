@@ -1,7 +1,7 @@
 // Dependencies
 const express = require("express");
 const path = require('path');
-var exphbs = require('express-handlebars')
+const exphbs = require('express-handlebars');
 
 // App data
 const PORT = process.env.PORT || 8080;

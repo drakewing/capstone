@@ -25,6 +25,6 @@ jobs:
             - run: npm run build --if-present
             - run: npm test
             - name: Lint application code
-              run: npx eslint src/*
+              run: npx eslint src/**/*
             - name: Lint tests
-              run: npx eslint test/*
+              run: npx eslint test/**/*

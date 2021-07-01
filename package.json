@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "node src/app.js",
     "start-dev": "nodemon src/app.js",
-    "lint": "npx eslint src/**/* && npx eslint test/**/*"
+    "lint": "npx eslint \"src/**/*.js\" && npx eslint \"test/**/*.js\""
   },
   "repository": {
     "type": "git",

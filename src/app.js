@@ -27,6 +27,10 @@ app.get("/search", (req, res) => {
   res.render("search");
 });
 
+app.get("/profile", (req, res)  => {
+  res.render("profile");
+});
+
 app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);
   console.log("Press Ctrl+C to quit");

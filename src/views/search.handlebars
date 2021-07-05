@@ -18,55 +18,27 @@
         </div>
         <div class="row search">
           Disposition:<br>
-          {each disposition here}
+          {each disposition here}   
+        </div>
+        <div class="row searchButton">
+        <a href="#" class="btn btn-primary">Update search</a>
         </div>
       </div>
     </div>
     <!--Animal data from database (right 9/12 columns of page in full-size browser window)-->
     <div class="col-md-9 col-sm-12 float-md-none"> 
-      <div class="container">
-        <div class="row">
-          <!--Table nested in the right 9/12 of the page. Each animal card is 4/12 columns of this nested section-->
-          <div class="col-md-4">
-            <div class="card" style="">
-              <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ">
-            <div class="card" style="">
-              <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card" style="">
-              <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card" style="">
-              <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
+      <div class="container" id="pets">
+        <div class="row"> 
+        {{>searchgrid}}
+        <div class="pagination">
+          {{#if next}}
+            <span id="next">
+              <button data-cursor="{{next}}" class="btn btn-primary">Next</a>
+            </span>
+            <!-- <span id="previous">
+              <a href="#" class="btn btn-primary">Previous</a>
+            </span> -->
+          {{/if}}
         </div>
       </div>
     </div>

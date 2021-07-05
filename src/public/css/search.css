@@ -1,8 +1,22 @@
 .search {
-    border-style: ridge;
+    border-top: ridge;
     height:200px; 
     overflow:hidden; 
     overflow-y:scroll;
 }
 
+.searchButton {
+    border-top: ridge;
+}
+
+.disposition {
+    border-top: ridge;
+    height:100px; 
+    overflow:hidden; 
+    overflow-y:scroll;
+}
+
+#noPets {
+    padding-top: 100px;
+}
 

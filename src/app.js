@@ -27,7 +27,7 @@ app.get("/search", (req, res) => {
   res.render("search");
 });
 
-app.get("/profile", (req, res)  => {
+app.get("/profile", (req, res) => {
   res.render("profile");
 });
 

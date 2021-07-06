@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/search.css" type="text/css">
+<link rel="stylesheet" href="/css/animals.css" type="text/css">
 
 <div class="container" id="heading">
   <h1>Find an Animal</h1>
@@ -28,21 +28,11 @@
     <!--Animal data from database (right 9/12 columns of page in full-size browser window)-->
     <div class="col-md-9 col-sm-12 float-md-none"> 
       <div class="container" id="pets">
-        <div class="row"> 
-        {{>searchgrid}}
-        <div class="pagination">
-          {{#if next}}
-            <span id="next">
-              <button data-cursor="{{next}}" class="btn btn-primary">Next</a>
-            </span>
-            <!-- <span id="previous">
-              <a href="#" class="btn btn-primary">Previous</a>
-            </span> -->
-          {{/if}}
-        </div>
+        <div class="row" id="searchgrid"> 
+        {{>animalsgrid}}
       </div>
     </div>
   </div>
 </div> 
 
-<script src="/js/search.js"></script>
+<script src="/js/animals.js"></script>

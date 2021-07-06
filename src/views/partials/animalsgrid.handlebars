@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/css/animals.css" type="text/css">
+
+{{#if pets}}
+    {{#each pets}}
+    <!--Table nested in the right 9/12 of the page. Each animal card is 4/12 columns of this nested section-->
+    <div class="col-md-4">
+        <div class="card" style="">
+            <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{this.Name}}</h5>
+                <div class="card-text">{{this.Species}} | {{this.Breed}}</div>
+                <div class="card-text">{{this.Gender}} | {{this.Age}}</div>
+                <!-- save this code for the modal screen
+                <div class="disposition"> 
+                    {{#each this.Disposition}}
+                    <div class="card-text">{{this}}</div>
+                    {{/each}}
+                </div> -->
+                <a href="#" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="pagination">
+        {{#if next}}
+            <button data-cursor="{{next}}" id="next" class="btn btn-primary">Next</a>
+        {{/if}}
+    </div>
+{{else}}
+    <div id="noPets">
+        <h3>There are no animals currently available for adoption</h3>
+    </div>
+{{/if}}
+            
+

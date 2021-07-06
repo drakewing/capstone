@@ -1,5 +1,5 @@
 const PETS = 'Pets';
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 6;
 
 // Dependencies
 const express = require("express");
@@ -62,24 +62,24 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/search", (req, res) => {
-  let cursor = null
-   get_pets(cursor).then( (petInventory) => {
-    console.log("get_pets finished. petInventory:");
-    console.log(petInventory);
-    res.render("search", petInventory);
-   });
-});
-
-// /searchnext?cursor=tftvythbuhnbygftrfc
-app.get("/searchnext", (req, res) => {
-  if(Object.keys(req.query).includes("cursor")){
+app.get("/animals", (req, res) => {
+  //if user clicks the "next" button to see more results
+  if(Object.keys(req.query).includes("cursor")) {
     cursor = req.query.cursor;
     get_pets(cursor).then( (petInventory) => {
       console.log("get_pets finished. petInventory:");
       console.log(petInventory);
-      res.render("searchgrid", petInventory);
-     });
+      petInventory.layout = false;
+      res.render("partials/animalsgrid", petInventory);
+    });
+  }
+  //loads full animals page
+  else {
+    get_pets(null).then( (petInventory) => {
+      console.log("get_pets finished. petInventory:");
+      console.log(petInventory);
+      res.render("animals", petInventory);
+    });
   }
 });
 

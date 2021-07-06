@@ -1,5 +1,5 @@
 $(document).on('click', '#next', () => {
-  const nextCursor =  encodeURIComponent($("#next").attr("data-cursor"));
+  const nextCursor = encodeURIComponent($("#next").attr("data-cursor"));
   console.log(nextCursor);
 
   $.ajax({

@@ -16,3 +16,6 @@ body {
 .navbar-right {
     margin-left: auto;
 }
+#main_heading {
+    color: white;
+}

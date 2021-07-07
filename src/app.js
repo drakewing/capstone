@@ -34,7 +34,7 @@ function fromDatastore(item) {
 }
 
 // Model Functions
-function getPets(cursor) {
+async function getPets(cursor) {
   let q = datastore.createQuery(PETS)
     .limit(PAGE_SIZE);
 
@@ -59,21 +59,21 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/animals", (req, res) => {
+app.get("/animals", async (req, res) => {
   // if user clicks the "next" button to see more results
   if (Object.keys(req.query).includes("cursor")) {
     const { cursor } = req.query;
-    getPets(cursor).then((petInventory) => {
-      console.log(petInventory);
-      petInventory.layout = false;
-      res.render("partials/animalsgrid", petInventory);
-    });
+    let context = await getPets(cursor)
+    console.log(context);
+    context.layout = false;
+    res.render("partials/animalsgrid", context);
   } else {
     // loads full animals page
-    getPets(null).then((petInventory) => {
-      console.log(petInventory);
-      res.render("animals", petInventory);
-    });
+    //let breedList = getBreeds();
+    let context = await getPets(null)
+    //context.breadList = breedList;
+    console.log(context);
+    res.render("animals", context);
   }
 });
 

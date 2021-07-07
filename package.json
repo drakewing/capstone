@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/drake6m/capstone#readme",
   "dependencies": {
-    "@google-cloud/datastore": "^5.0.0",
+    "@google-cloud/datastore": "^6.4.4",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
     "path": ""

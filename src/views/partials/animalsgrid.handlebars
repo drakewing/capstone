@@ -23,7 +23,9 @@
     {{/each}}
     <div class="pagination">
         {{#if next}}
-            <button data-cursor="{{next}}" id="next" class="btn btn-primary">Next</a>
+        <a href="/animals?page={{next}}">
+            <button page="{{next}}" id="next" class="btn btn-primary">Next</button>
+        </a>
         {{/if}}
     </div>
 {{else}}

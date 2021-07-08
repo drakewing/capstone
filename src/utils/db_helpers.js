@@ -5,4 +5,4 @@ const fromDatastore = (item) => {
   return item;
 };
 
-export { fromDatastore as default };
+exports.fromDatastore = fromDatastore;

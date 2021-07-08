@@ -9,43 +9,30 @@ const PETS = "Pets";
 const PAGE_SIZE = 6;
 
 // Model Functions
-async function getPets(cursor) {
+async function getPets(page) {
   let q = datastore.createQuery(PETS).limit(PAGE_SIZE);
+  let next = 1;
 
-  if (cursor) {
-    q = q.start(cursor);
+  // Request specified a page, make sure it's >= 0
+  if (typeof page !== "undefined") {
+    let pageInt = parseInt(page, 10);
+    pageInt = pageInt >= 0 ? pageInt : 0;
+    next = pageInt + 1;
+    q = q.offset(pageInt * PAGE_SIZE);
   }
 
   return datastore.runQuery(q).then((results) => {
     const entities = results[0];
-    const info = results[1];
 
-    // send results in segments of 30 pets starting where the cursor indicates
-    if (info.moreResults !== Datastore.NO_MORE_RESULTS) {
-      return { pets: entities.map(fromDatastore), next: info.endCursor };
-    }
-    // if no results have been already sent, then send the first segment
-    return { pets: entities.map(fromDatastore) };
+    // Send results in segments of 6 pets starting with the requested page
+    return { pets: entities.map(fromDatastore), next };
   });
 }
 
 // "Animal" specific routes
-router.get("/", (req, res) => {
-  // if user clicks the "next" button to see more results
-  if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    getPets(cursor).then((petInventory) => {
-      console.log(petInventory);
-      petInventory.layout = false;
-      res.render("partials/animalsgrid", petInventory);
-    });
-  } else {
-    // loads full animals page
-    getPets(null).then((petInventory) => {
-      console.log(petInventory);
-      res.render("animals", petInventory);
-    });
-  }
+router.get("/", async (req, res) => {
+  const pets = await getPets(req.query.page);
+  res.render("animals", pets);
 });
 
 module.exports = router;

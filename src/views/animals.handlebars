@@ -8,20 +8,55 @@
     <!--Animal search criteria (left left 3/12 of page in full-size browser window)-->
     <div class="col-md-3 col-sm-12 float-md-none"> 
       <div class="container">
-        <div class="row search">
-          Animal Type:<br>
-          {each animal type here}
+        <div class="row category">
+          Species Type:<br>
         </div>
-        <div class="row search">
+        <div class="row">
+          <div class="searchSpecies">
+            {{#each species}}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="flexRadioDefault1{{this.type}}">
+                <label class="form-check-label" for="flexRadioDefault{{this.type}}">{{this.type}}</label>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="row category">
           Breed:<br>
-          {each breed type here}
         </div>
-        <div class="row search">
+        <div class="row">
+          <div class="search">
+            {{#each species}}
+              <span class="{{this.type}}">
+              {{#each breeds}}
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck{{this}}">
+                  <label class="form-check-label" for="defaultCheck{{this}}">{{this}}</label>
+                </div>
+              {{/each}}
+              </span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="row category">
           Disposition:<br>
-          {each disposition here}   
+        </div>
+        <div class="row">
+          <div class="search">
+            {{#each dispositions}}
+              {{#each this.Disposition}}
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck{{this}}">
+                  <label class="form-check-label" for="defaultCheck{{this}}">
+                  {{this}}
+                  </label>
+                </div>
+              {{/each}}
+            {{/each}}
+          </div>
         </div>
         <div class="row searchButton">
-        <a href="#" class="btn btn-primary">Update search</a>
+          <button  id="filter" class="btn btn-primary">Filter results</a>
         </div>
       </div>
     </div>

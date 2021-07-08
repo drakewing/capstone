@@ -40,7 +40,6 @@ app.use("/animals", animals);
 app.use("/applications", applications);
 app.use("/users", users);
 
-
 app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);
   console.log("Press Ctrl+C to quit");

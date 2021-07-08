@@ -31,6 +31,10 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
+
 // Routers
 app.use("/animals", animals);
 app.use("/applications", applications);

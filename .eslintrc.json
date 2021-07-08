@@ -15,8 +15,9 @@
   },
   "plugins": [],
   "rules": {
-    "quotes": "off",
+    "comma-dangle": ["error", "only-multiline"],
     "no-console": "off",
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "quotes": "off"
   }
 }

@@ -51,23 +51,28 @@ async function getDispositions() {
 
 // "Animal" specific routes
 router.get("/", async (req, res) => {
+  // loads full animals page
+  let context = await getAnimals(null);
+  const species = await getSpecies();
+  context = Object.assign(context, species);
+  const disposition = await getDispositions();
+  context = Object.assign(context, disposition);
+  res.render("animals", context);
+});
+
+router.get("/partial", async (req, res) => {
+  let cursor = null;
   // if user clicks the "next" button to see more results
   if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    const context = await getAnimals(cursor);
-    console.log(context);
-    context.layout = false;
-    res.render("partials/animalsgrid", context);
-  } else {
-    // loads full animals page
-    let context = await getAnimals(null);
-    const species = await getSpecies();
-    context = Object.assign(context, species);
-    const disposition = await getDispositions();
-    context = Object.assign(context, disposition);
-    res.render("animals", context);
-    console.log(context);
+    cursor = req.query.cursor;
   }
+
+  console.log(req.query);
+
+  // TODO query string filtering
+  const context = await getAnimals(cursor);
+  context.layout = false;
+  res.render("partials/animalsgrid", context);
 });
 
 module.exports = router;

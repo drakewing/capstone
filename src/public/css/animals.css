@@ -7,7 +7,14 @@
 
 .searchSpecies {
     border-top: ridge;
-    height:75px;
+    height:80px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+
+.searchDateCreated {
+    border-top: ridge;
+    height:60px;
     overflow:hidden;
     overflow-y:scroll;
 }

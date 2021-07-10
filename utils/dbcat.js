@@ -11,9 +11,7 @@ datastore.runQuery(q).then((results) => {
   console.log(entities);
 });
 
-const SPECIES = "Species";
-
-q = datastore.createQuery(SPECIES);
+q = datastore.createQuery(kinds.SPECIES);
 
 datastore.runQuery(q).then((results) => {
   const entities = results[0];

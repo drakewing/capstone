@@ -57,7 +57,9 @@ species.forEach((e) => {
 });
 
 const Disposition = [
-  "Good with kids",
+  "Good with children",
+  "Good with other animals",
+  "Animal must be leashed at all times",
   "Special Needs",
   "Adults-only home",
   "Special dietary needs",

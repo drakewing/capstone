@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/css/animals.css" type="text/css">
+
+<div class="container" id="heading">
+  <h1>Find an Animal</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <!--Animal search criteria (left left 3/12 of page in full-size browser window)-->
+    <div class="col-md-3 col-sm-12 float-md-none"> 
+      <div class="container">
+        <div class="row search">
+          Animal Type:<br>
+          {each animal type here}
+        </div>
+        <div class="row search">
+          Breed:<br>
+          {each breed type here}
+        </div>
+        <div class="row search">
+          Disposition:<br>
+          {each disposition here}   
+        </div>
+        <div class="row searchButton">
+        <a href="#" class="btn btn-primary">Update search</a>
+        </div>
+      </div>
+    </div>
+    <!--Animal data from database (right 9/12 columns of page in full-size browser window)-->
+    <div class="col-md-9 col-sm-12 float-md-none"> 
+      <div class="container" id="pets">
+        <div class="row" id="searchgrid"> 
+        {{>animalsgrid}}
+      </div>
+    </div>
+  </div>
+</div> 
+
+<script src="/js/animals.js"></script>

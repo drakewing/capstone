@@ -3,7 +3,8 @@
     "browser": true,
     "commonjs": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jquery": true
   },
   "extends": ["airbnb"],
   "parserOptions": {
@@ -14,7 +15,9 @@
   },
   "plugins": [],
   "rules": {
-    "quotes": "off",
-    "no-console": "off"
+    "comma-dangle": ["error", "only-multiline"],
+    "no-console": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "quotes": "off"
   }
 }

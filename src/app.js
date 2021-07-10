@@ -63,6 +63,10 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
+app.get("/add_animal", (req, res) => {
+  res.render("add_animal");
+});
+
 app.get("/animals", (req, res) => {
   // if user clicks the "next" button to see more results
   if (Object.keys(req.query).includes("cursor")) {

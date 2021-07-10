@@ -39,6 +39,10 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
+app.get("/add_animal", (req, res) => {
+  res.render("add_animal");
+});
+
 app.get("/signup", (req, res) => {
   res.render("signup");
 });

@@ -31,38 +31,26 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
-<<<<<<< HEAD
 app.get("/add_animal", (req, res) => {
   res.render("add_animal");
 });
 
-app.get("/animals", (req, res) => {
-  // if user clicks the "next" button to see more results
-  if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    getPets(cursor).then((petInventory) => {
-      console.log(petInventory);
-      petInventory.layout = false;
-      res.render("partials/animalsgrid", petInventory);
-    });
-  } else {
-    // loads full animals page
-    getPets(null).then((petInventory) => {
-      console.log(petInventory);
-      res.render("animals", petInventory);
-    });
-  }
+app.get("/signup", (req, res) => {
+  res.render("signup");
 });
-=======
+
 // Routers
 app.use("/animals", animals);
 app.use("/applications", applications);
 app.use("/users", users);
->>>>>>> 1d894e64c297b3fb4c725ecae7863f95702f7cf4
 
 app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);

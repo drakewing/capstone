@@ -4,7 +4,8 @@ const kinds = require("../src/utils/kinds");
 
 const datastore = new Datastore();
 
-let q = datastore.createQuery(kinds.PETS);
+let q = datastore.createQuery(kinds.ANIMALS)
+  .order('DateCreated', { descending: true });
 
 datastore.runQuery(q).then((results) => {
   const entities = results[0];

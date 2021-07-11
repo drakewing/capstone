@@ -1,5 +1,35 @@
 <link rel="stylesheet" href="/css/animals.css" type="text/css">
 
+<div class="modal fade" id="animalModal" tabindex="-1" aria-labelledby="animalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="animalModalLabel">Animal Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="">
+          <img src="/images/A_Basenji_puppy.jpg" alt="Animal Photo" class="animalModalPhoto">
+          <ul id="animalDetailsList">
+              <li >Gender: <span id="gender"></span> </li>
+              <li >Age: <span id="age"></span></li>
+              <li >Species: <span id="species"></span></li>
+              <li >Breed: <span id="breed"></span></li>
+              <li >Animal status: <span id="availability"></span></li>
+              <li>Date created: <span id="dateCreated"></span> </li>
+              <li>Disposition:</li>
+                <ul id="disposition"></ul>
+            </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Adopt this animal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{#if pets}}
     {{#each pets}}
     <!--Table nested in the right 9/12 of the page. Each animal card is 4/12 columns of this nested section-->
@@ -10,13 +40,12 @@
                 <h5 class="card-title">{{this.Name}}</h5>
                 <div class="card-text">{{this.Species}} | {{this.Breed}}</div>
                 <div class="card-text">{{this.Gender}} | {{this.Age}}</div>
-                <!-- save this code for the modal screen
-                <div class="disposition"> 
-                    {{#each this.Disposition}}
-                    <div class="card-text">{{this}}</div>
-                    {{/each}}
-                </div> -->
-                <a href="#" class="btn btn-primary">Details</a>
+                <!-- Data for Modal Screen display -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animalModal" 
+                data-name="{{this.Name}}" data-species="{{this.Species}}" data-gender="{{this.Gender}}"
+                data-breed="{{this.Breed}}" data-age="{{this.Age}}" data-disposition="{{this.Disposition}}"
+                data-availability="{{this.Availability}}" data-name="{{this.Name}}" 
+                data-dateCreated="{{this.DateCreated}}">Details</button>
             </div>
         </div>
     </div>

@@ -27,11 +27,11 @@
         <div class="row">
           <div class="search">
             {{#species}}
-              <span id="{{this.type}}checkSpan">
+              <span id="{{this.type}}radioSpan">
                 {{#breeds}}
                   <div class="form-check">
-                    <input class="form-check-input {{../type}}Checkbox" type="checkbox" name="{{this}}" id="{{this}}Checkbox">
-                    <label class="form-check-label" for="{{this}}Checkbox">{{this}}</label>
+                    <input class="form-check-input breed {{../type}}Radio" type="radio" name="breedRadio" value="{{this}}" id="{{this}}Radio">
+                    <label class="form-check-label" for="{{this}}Radio">{{this}}</label>
                   </div>
                 {{/breeds}}
               </span>
@@ -61,11 +61,11 @@
         <div class="row">
           <div class="searchDateCreated">
               <div class="form-check">
-                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="Newest_to_Oldest" id="NewtoOldRadio" checked="true">
+                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="descending=true" id="NewtoOldRadio" checked="true">
                 <label class="form-check-label" for="NewtoOldRadio">Newest to Oldest</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="Oldest_to_Newest" id="OldtoNewRadio">
+                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="descending=false" id="OldtoNewRadio">
                 <label class="form-check-label" for="OldtoNewRadio">Oldest to Newest</label>
               </div>
           </div>

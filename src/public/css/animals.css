@@ -41,3 +41,17 @@
 .category {
     height: 20px;
 }
+
+.modal-body{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.animalModalPhoto {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}

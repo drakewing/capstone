@@ -10,8 +10,28 @@ const datastore = new Datastore();
 const PAGE_SIZE = 6;
 
 // Model Functions
-async function getAnimals(cursor) {
+async function getAnimals(cursor, searchCriteria) {
   let q = datastore.createQuery(kinds.ANIMALS).limit(PAGE_SIZE);
+  q.filter('Species', '=', searchCriteria.species);
+
+  if (searchCriteria.breed !== "Any Breed") {
+    q.filter('Breed', '=', searchCriteria.breed);
+  }
+
+  if (typeof searchCriteria.disposition === 'object') {
+    searchCriteria.disposition.forEach((e) => {
+      q.filter('Disposition', '=', e);
+    });
+  } else if (typeof searchCriteria.disposition === "string") {
+    q.filter('Disposition', '=', searchCriteria.disposition);
+  }
+
+  if (searchCriteria.descending === "true") {
+    searchCriteria.descending = true;
+  } else {
+    searchCriteria.descending = false;
+  }
+  q.order('DateCreated', { descending: searchCriteria.descending });
 
   if (cursor) {
     q = q.start(cursor);
@@ -51,23 +71,27 @@ async function getDispositions() {
 
 // "Animal" specific routes
 router.get("/", async (req, res) => {
+  // loads full animals page
+  let context = await getAnimals(null, { species: "Cat", breed: "Any Breed", descending: "true" });
+  const species = await getSpecies();
+  context = Object.assign(context, species);
+  const disposition = await getDispositions();
+  context = Object.assign(context, disposition);
+  res.render("animals", context);
+});
+
+router.get("/partial", async (req, res) => {
+  console.log(req.query);
+
+  let cursor = null;
   // if user clicks the "next" button to see more results
   if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    const context = await getAnimals(cursor);
-    console.log(context);
-    context.layout = false;
-    res.render("partials/animalsgrid", context);
-  } else {
-    // loads full animals page
-    let context = await getAnimals(null);
-    const species = await getSpecies();
-    context = Object.assign(context, species);
-    const disposition = await getDispositions();
-    context = Object.assign(context, disposition);
-    res.render("animals", context);
-    console.log(context);
+    cursor = req.query.cursor;
   }
+
+  const context = await getAnimals(cursor, req.query);
+  context.layout = false;
+  res.render("partials/animalsgrid", context);
 });
 
 module.exports = router;

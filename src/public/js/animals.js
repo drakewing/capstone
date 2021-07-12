@@ -150,6 +150,7 @@ $(document).on('click', '#next', () => {
 $(document).on('show.bs.modal', (event) => {
   // Button that triggered the modal
   const button = event.relatedTarget;
+
   // Extract info from data-* attributes
   const gender = button.getAttribute('data-gender');
   const breed = button.getAttribute('data-breed');

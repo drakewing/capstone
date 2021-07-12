@@ -28,11 +28,10 @@ async function getAnimals(cursor, searchCriteria) {
 
   if (searchCriteria.descending === "true") {
     searchCriteria.descending = true;
-  }
-  else {
+  } else {
     searchCriteria.descending = false;
   }
-  q.order('DateCreated', { descending: searchCriteria.descending }); // TODO filter by criteria in query string
+  q.order('DateCreated', { descending: searchCriteria.descending });
 
   if (cursor) {
     q = q.start(cursor);

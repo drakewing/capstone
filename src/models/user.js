@@ -56,32 +56,7 @@ class User {
   /**
    * Checks a password for correctness by comparing hashes.
    */
-  async validPassword(password) {
-    return await bcrypt.compare(password, this.entity.password);
-  }
-
-  /**
-   * Finds a single user based on id.  Calls "callback" with either an instance
-   * of the user (on success) or undefined (on failure).
-   *
-   * Also returns the newly instantiated User object.
-   */
-  static async findById(id, callback) {
-    const q = datastore
-      .createQuery(kinds.USERS)
-      .limit(1)
-      .filter("__key__", datastore.key([kinds.USERS, parseInt(id)]));
-
-    let user = (await datastore.runQuery(q))[0][0];
-    if (typeof user === "undefined") {
-      callback(undefined, undefined);
-      return user;
-    }
-
-    user = new User(fromDatastore(user));
-    callback(undefined, user);
-    return user;
-  }
+  validPassword(password) {}
 
   /**
    * Finds a single user based on email (supplied in options).  Calls

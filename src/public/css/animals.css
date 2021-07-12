@@ -7,7 +7,14 @@
 
 .searchSpecies {
     border-top: ridge;
-    height:75px;
+    height:80px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+
+.searchDateCreated {
+    border-top: ridge;
+    height:60px;
     overflow:hidden;
     overflow-y:scroll;
 }
@@ -33,4 +40,18 @@
 
 .category {
     height: 20px;
+}
+
+.modal-body{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.animalModalPhoto {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }

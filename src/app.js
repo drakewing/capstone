@@ -1,19 +1,19 @@
 // Dependencies
+const { Datastore } = require("@google-cloud/datastore");
+const { DatastoreStore } = require("@google-cloud/connect-datastore");
 const express = require("express");
 const path = require("path");
 const exphbs = require("express-handlebars");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const { User } = require("./models/user");
 const animals = require("./routers/animals");
 const applications = require("./routers/applications");
 const login = require("./routers/login");
 const signup = require("./routers/signup");
 const users = require("./routers/users");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
-const { Datastore } = require("@google-cloud/datastore");
-const { DatastoreStore } = require("@google-cloud/connect-datastore");
-const { User } = require("./models/user");
 
 // App data
 const PORT = process.env.PORT || 8080;
@@ -80,7 +80,7 @@ passport.use(
       user.setEmail(username);
       await user.setPassword(password);
       await user.save();
-      done(null, user);
+      return done(null, user);
     }
   )
 );
@@ -89,7 +89,7 @@ passport.use(
 passport.use(
   "localSignin",
   new LocalStrategy(async (username, password, done) => {
-    let user = await User.findOne({ username }, () => {});
+    const user = await User.findOne({ username }, () => {});
 
     if (!user) {
       return done(null, false, { message: "Incorrect username." });

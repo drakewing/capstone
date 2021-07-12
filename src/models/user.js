@@ -1,8 +1,9 @@
 // Dependencies
 const { Datastore } = require("@google-cloud/datastore");
+const bcrypt = require("bcrypt");
+
 const { fromDatastore } = require("../utils/db_helpers");
 const kinds = require("../utils/kinds");
-const bcrypt = require("bcrypt");
 
 // App data
 const datastore = new Datastore();
@@ -57,7 +58,7 @@ class User {
    * Checks a password for correctness by comparing hashes.
    */
   async validPassword(password) {
-    return await bcrypt.compare(password, this.entity.password);
+    return bcrypt.compare(password, this.entity.password);
   }
 
   /**
@@ -70,7 +71,7 @@ class User {
     const q = datastore
       .createQuery(kinds.USERS)
       .limit(1)
-      .filter("__key__", datastore.key([kinds.USERS, parseInt(id)]));
+      .filter("__key__", datastore.key([kinds.USERS, parseInt(id, 10)]));
 
     let user = (await datastore.runQuery(q))[0][0];
     if (typeof user === "undefined") {

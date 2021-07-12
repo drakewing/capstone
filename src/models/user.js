@@ -12,7 +12,7 @@ const saltRounds = 10;
  * This class represents users in the application. Users will have (at least)
  * an email and password hash.
  */
-export class User {
+class User {
   /**
    * Saves datastore entity and id as instance variables for convenience.
    *
@@ -20,9 +20,29 @@ export class User {
    */
   constructor(entity) {
     if (entity) {
-      this.entity = entity;
-      this.id = entity.id;
+      this.entity = fromDatastore(entity);
+    } else {
+      this.entity = {};
     }
+  }
+
+  /**
+   * Saves a user to the datastore.
+   */
+  async save() {
+    const newUser = {
+      key: this.entity[Datastore.KEY] || datastore.key(kinds.USERS),
+      data: this.entity,
+    };
+    await datastore.save(newUser);
+    this.entity.id = newUser.key.id;
+  }
+
+  /**
+   * Sets the user's email to a new value. Doesn't do any validation.
+   */
+  setEmail(email) {
+    this.entity.email = email;
   }
 
   /**
@@ -31,7 +51,6 @@ export class User {
   async setPassword(password) {
     const hash = await bcrypt.hash(password, saltRounds);
     this.entity.password = hash;
-    datastore.save(this.entity);
   }
 
   /**
@@ -43,18 +62,23 @@ export class User {
    * Finds a single user based on email (supplied in options).  Calls
    * "callback" with either an instance of the user (on success) or
    * undefined (on failure).
+   *
+   * Also returns the newly instantiated User object.
    */
   static async findOne(options, callback) {
     const q = datastore.createQuery(kinds.USERS).limit(1);
     q.filter("email", "=", options.username);
 
-    const user = await datastore.runQuery(q)[0][0];
-
+    let user = (await datastore.runQuery(q))[0][0];
     if (typeof user === "undefined") {
       callback(undefined, undefined);
-      return;
+      return user;
     }
 
-    callback(undefined, new User(fromDatastore(user)));
+    user = new User(fromDatastore(user));
+    callback(undefined, user);
+    return user;
   }
 }
+
+module.exports.User = User;

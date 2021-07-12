@@ -1,5 +1,5 @@
 // initialize datastore
-const { Datastore } = require('@google-cloud/datastore');
+const { Datastore } = require("@google-cloud/datastore");
 const kinds = require("../src/utils/kinds");
 
 const datastore = new Datastore();
@@ -101,7 +101,11 @@ animal3.Name = "Mustafa";
 animal3.Species = "Cat";
 animal3.Breed = "American Curl";
 animal3.Gender = "Male";
-animal3.Disposition = ["No other pets in home", "Good with kids", "Special dietary needs"];
+animal3.Disposition = [
+  "No other pets in home",
+  "Good with kids",
+  "Special dietary needs",
+];
 animal3.Age = "5 years";
 animal3.DateCreated = "01/01/2021";
 animal3.Availability = "Available";
@@ -123,7 +127,11 @@ animal5.Name = "Ziva";
 animal5.Species = "Dog";
 animal5.Breed = "Australian Shepherd";
 animal5.Gender = "Female";
-animal5.Disposition = ["Good with kids", "Special dietary needs", "High energy"];
+animal5.Disposition = [
+  "Good with kids",
+  "Special dietary needs",
+  "High energy",
+];
 animal5.Age = "7 years";
 animal5.DateCreated = "06/01/2021";
 animal5.Availability = "Available";
@@ -249,3 +257,22 @@ animal16.Age = "1 year";
 animal16.DateCreated = "07/01/2021";
 animal16.Availability = "Available";
 saveAnimal(animal16);
+
+function saveUser(newUser) {
+  const userKey = datastore.key(kinds.USERS);
+  datastore.save({ key: userKey, data: newUser });
+}
+
+const user1 = {
+  name: "Jane Doe",
+  email: "janedoe@gmail.com",
+  password: "asdfoweifjwoiefawpeoviaweoviajewovijwpovij",
+};
+saveUser(user1);
+
+const user2 = {
+  name: "John Doe",
+  email: "johndoe@gmail.com",
+  password: "asdfoweifjwoiefawpeoviaweoviajewovijwpovij",
+};
+saveUser(user2);

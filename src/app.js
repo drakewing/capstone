@@ -119,8 +119,12 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", (req, res) => {
   res.render("profile");
+});
+
+app.get("/add_animal", (req, res) => {
+  res.render("add_animal");
 });
 
 // Routers for specific pages

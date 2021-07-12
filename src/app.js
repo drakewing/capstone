@@ -4,6 +4,7 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const animals = require("./routers/animals");
 const applications = require("./routers/applications");
+const login = require("./routers/login");
 const signup = require("./routers/signup");
 const users = require("./routers/users");
 const passport = require("passport");
@@ -12,6 +13,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { Datastore } = require("@google-cloud/datastore");
 const { DatastoreStore } = require("@google-cloud/connect-datastore");
+const { User } = require("./models/user");
 
 // App data
 const PORT = process.env.PORT || 8080;
@@ -35,25 +37,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
+  // Datastore Sessions
   session({
     store: new DatastoreStore({
       kind: "express-sessions",
-
-      // Optional: expire the session after this many milliseconds.
-      // note: datastore does not automatically delete all expired sessions
-      // you may want to run separate cleanup requests to remove expired sessions
-      // 0 means do not expire
       expirationMs: 0,
-
       dataset: new Datastore({
-        // For convenience, @google-cloud/datastore automatically looks for the
-        // GCLOUD_PROJECT environment variable. Or you can explicitly pass in a
-        // project ID here:
         projectId: process.env.GCLOUD_PROJECT,
-
-        // For convenience, @google-cloud/datastore automatically looks for the
-        // GOOGLE_APPLICATION_CREDENTIALS environment variable. Or you can
-        // explicitly pass in that path to your key file here:
         keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
       }),
     }),
@@ -64,28 +54,57 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Auth middleware
+
+// Sign up flow
 passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        return done(err);
+  "localSignup",
+  new LocalStrategy(
+    { passReqToCallback: true },
+    async (req, username, password, done) => {
+      // Make sure no one has signed up with this email already.
+      let user = await User.findOne({ username: req.body.username }, () => {});
+      if (typeof user !== "undefined") {
+        return done(null, false, {
+          message: "Error: user's email already exists.",
+        });
       }
 
-      if (!user) {
-        return done(null, false, { message: "Incorrect username." });
+      // Make sure passwords match
+      if (req.body.password !== req.body.confirmPassword) {
+        return done(null, false, {
+          message: "Error: password and confirmation don't match.",
+        });
       }
 
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: "Incorrect password." });
-      }
+      user = new User();
+      user.setEmail(username);
+      await user.setPassword(password);
+      await user.save();
+      done(null, user);
+    }
+  )
+);
 
-      return done(null, user);
-    });
+// Log In flow
+passport.use(
+  "localSignin",
+  new LocalStrategy(async (username, password, done) => {
+    let user = await User.findOne({ username }, () => {});
+
+    if (!user) {
+      return done(null, false, { message: "Incorrect username." });
+    }
+
+    if (!(await user.validPassword(password))) {
+      return done(null, false, { message: "Incorrect password." });
+    }
+
+    return done(null, user);
   })
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.entity.id);
 });
 
 passport.deserializeUser((id, done) => {
@@ -100,17 +119,14 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.get("/profile", (req, res) => {
+app.get("/profile", async (req, res) => {
   res.render("profile");
 });
 
 // Routers for specific pages
 app.use("/animals", animals);
 app.use("/applications", applications);
+app.use("/login", login);
 app.use("/signup", signup);
 app.use("/users", users);
 

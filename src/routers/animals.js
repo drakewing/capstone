@@ -31,4 +31,11 @@ router.get("/partial", async (req, res) => {
   res.render("partials/animalsgrid", context);
 });
 
+router.post("/", async (req, res) => {
+  const newAnimal = new Animals(req.body);
+  await newAnimal.save();
+
+  res.status(204);
+});
+
 module.exports = router;

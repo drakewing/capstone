@@ -8,6 +8,19 @@ const datastore = new Datastore();
 const PAGE_SIZE = 6;
 
 class Animals {
+  constructor(obj) {
+    Object.assign(this, obj);
+  }
+
+  async save() {
+    const newAnimal = {
+      key: this[Datastore.KEY] || datastore.key(kinds.ANIMALS),
+      data: this,
+    };
+    await datastore.save(newAnimal);
+    this.id = newAnimal.key.id;
+  }
+
   static async getAnimals(cursor, searchCriteria) {
     let q = datastore.createQuery(kinds.ANIMALS).limit(PAGE_SIZE);
     q.filter('Species', '=', searchCriteria.species);

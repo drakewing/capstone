@@ -123,19 +123,16 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
-<<<<<<< HEAD
+
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
 
-=======
->>>>>>> main
 app.get("/add_animal", (req, res) => {
   res.render("add_animal");
 });
 
-<<<<<<< HEAD
 app.get("/animals", (req, res) => {
   // if user clicks the "next" button to see more results
   if (Object.keys(req.query).includes("cursor")) {
@@ -155,9 +152,9 @@ app.get("/animals", (req, res) => {
 });
 
 // Routers
-=======
+
 // Routers for specific pages
->>>>>>> main
+
 app.use("/animals", animals);
 app.use("/applications", applications);
 app.use("/login", login);

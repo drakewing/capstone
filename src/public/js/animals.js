@@ -1,29 +1,27 @@
-// gets the user's species radio button selection
-function getSpecies() {
-  const species = document.getElementsByClassName("species");
-  let selectedSpecies;
-  for (let i = 0; i < species.length; i += 1) {
-    if (species[i].checked === true) {
-      selectedSpecies = species[i].value;
-    }
-  }
-  return selectedSpecies;
-}
-
 /* Generates query string based on filter criteria selected by user
  *
  * Example:
  *   ?breed=yorkie&breed=beagle&disposition=goodwithkids&dateCreated=Newest_to_Oldest
  */
-function buildQueryString(species) {
+function buildQueryString() {
+  // gets the user's species radio button selection
+  const speciesList = document.getElementsByClassName("species");
+  let species;
+  for (let i = 0; i < speciesList.length; i += 1) {
+    if (speciesList[i].checked === true) {
+      species = speciesList[i].value;
+    }
+  }
+  // get the breed chosen by the user
   const breedRadio = document.getElementsByClassName(`${species}Radio`);
   const breedCriteria = [];
   for (let i = 0; i < breedRadio.length; i += 1) {
     if (breedRadio[i].checked === true) {
-      breedCriteria.push(breedRadio[i].value);
+      breedCriteria.push(encodeURIComponent(breedRadio[i].value));
     }
   }
 
+  // build the query string
   let queryString = `species=${species}`;
 
   if (breedCriteria.length > 0) {
@@ -36,7 +34,7 @@ function buildQueryString(species) {
   const dispositionCriteria = [];
   for (let i = 0; i < dispositionCheckBoxes.length; i += 1) {
     if (dispositionCheckBoxes[i].checked === true) {
-      dispositionCriteria.push(dispositionCheckBoxes[i].name);
+      dispositionCriteria.push(encodeURIComponent(dispositionCheckBoxes[i].name));
     }
   }
 
@@ -82,8 +80,8 @@ $(document).ready(() => {
 
 // filter search results buttons
 $(document).on('click', '#filter', () => {
-  const species = getSpecies();
-  const searchCriteria = buildQueryString(species);
+  const searchCriteria = buildQueryString();
+  console.log(searchCriteria);
 
   $.ajax({
     type: "GET",
@@ -127,8 +125,7 @@ $(document).on('click', '#next', () => {
   const nextCursor = encodeURIComponent($("#next").attr("data-cursor"));
   console.log(nextCursor);
 
-  const species = getSpecies();
-  const searchCriteria = buildQueryString(species);
+  const searchCriteria = buildQueryString();
   console.log(searchCriteria);
 
   $.ajax({

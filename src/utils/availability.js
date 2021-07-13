@@ -1,7 +1,8 @@
 const availability = {
+  ADOPTED: "Adopted",
   AVAILABLE: "Available",
   NOT_AVAILABLE: "Not Available",
-  ADOPTED: "Adopted",
+  PENDING: "Pending",
 };
 
 module.exports.availability = availability;

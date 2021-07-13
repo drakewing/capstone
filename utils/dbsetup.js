@@ -1,78 +1,13 @@
 // initialize datastore
 const { Datastore } = require('@google-cloud/datastore');
 const kinds = require("../src/utils/kinds");
+const { gender } = require("../src/utils/gender");
+const { species } = require("../src/utils/species");
+const { breeds } = require("../src/utils/breeds");
+const { availability } = require("../src/utils/availability");
+const { dispositions } = require("../src/utils/dispositions");
 
 const datastore = new Datastore();
-
-const species = [
-  {
-    type: "Dog",
-    breeds: [
-      "Any Breed",
-      "Australian Shepherd",
-      "Beagle",
-      "Border Collie",
-      "Bulldog",
-      "Cavalier King Charles Spaniel",
-      "Corgi",
-      "French Bulldog",
-      "German Shepherd",
-      "Golden Retreiver",
-      "Poodle",
-      "Pomeranian",
-      "Pug",
-      "Siberian Husky",
-      "Yorkshire Terrier",
-      "Other(Dog)",
-    ],
-  },
-  {
-    type: "Cat",
-    breeds: [
-      "Any Breed",
-      "American Curl",
-      "Bengal",
-      "British Shorthair",
-      "Main Coon",
-      "Munch",
-      "Persian",
-      "Ragdoll",
-      "Siamese",
-      "Sphynx",
-      "Other(Cat)",
-    ],
-  },
-  {
-    type: "Other",
-    breeds: [
-      "Any Breed",
-      "Angora Rabbit",
-      "English Spot Rabbit",
-      "Common Leopard Gecko",
-      "Other Breed",
-    ],
-  },
-];
-
-species.forEach((e) => {
-  const key = datastore.key(kinds.SPECIES);
-  datastore.save({ key, data: { type: e.type, breeds: e.breeds } });
-});
-
-const Disposition = [
-  "Good with children",
-  "Good with other animals",
-  "Animal must be leashed at all times",
-  "Special Needs",
-  "Adults-only home",
-  "Special dietary needs",
-  "Energetic",
-  "Needs companion animal",
-  "No other animals in home",
-];
-
-const key = datastore.key(kinds.DISPOSITIONS);
-datastore.save({ key, data: { Disposition } });
 
 function saveAnimal(newAnimal) {
   const animalKey = datastore.key(kinds.ANIMALS);
@@ -81,176 +16,181 @@ function saveAnimal(newAnimal) {
 
 const animal1 = {};
 animal1.Name = "Bucky";
-animal1.Species = "Dog";
-animal1.Breed = "Cavalier King Charles Spaniel";
-animal1.Gender = "Male";
-animal1.Disposition = ["Good with children", "Energetic", "Good with other animals"];
+animal1.Species = species.DOG;
+animal1.Breed = breeds.Dog.CAVALIER_KING_CHARLES_SPANIEL;
+animal1.Gender = gender.MALE;
+animal1.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
+  dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal1.Age = "1 year";
 animal1.DateCreated = "2021-02-01";
-animal1.Availability = "Available";
+animal1.Availability = availability.AVAILABLE;
 saveAnimal(animal1);
 
 const animal2 = {};
 animal2.Name = "Peanut";
-animal2.Species = "Dog";
-animal2.Breed = "Yorkshire Terrier";
-animal2.Gender = "Male";
-animal2.Disposition = ["Special Needs", "Adults-only home"];
+animal2.Species = species.DOG;
+animal2.Breed = breeds.Dog.YORKIE;
+animal2.Gender = gender.MALE;
+animal2.Disposition = [dispositions.SPECIAL_NEEDS, dispositions.ADULTS_ONLY,
+  dispositions.ANIMAL_MUST_BE_LEASHED_AT_ALL_TIMES];
 animal2.Age = "6 years";
 animal2.DateCreated = "2021-06-01";
-animal2.Availability = "Available";
+animal2.Availability = availability.AVAILABLE;
 saveAnimal(animal2);
 
 const animal3 = {};
 animal3.Name = "Mustafa";
-animal3.Species = "Cat";
-animal3.Breed = "American Curl";
-animal3.Gender = "Male";
-animal3.Disposition = ["No other pets in home", "Good with children", "Special dietary needs"];
+animal3.Species = species.CAT;
+animal3.Breed = breeds.Cat.AMERICAN_CURL;
+animal3.Gender = gender.MALE;
+animal3.Disposition = [dispositions.SOLO_ANIMAL, dispositions.GOOD_WITH_CHILDREN,
+  dispositions.SPECIAL_DIET];
 animal3.Age = "5 years";
 animal3.DateCreated = "2021-05-01";
-animal3.Availability = "Available";
+animal3.Availability = availability.AVAILABLE;
 saveAnimal(animal3);
 
 const animal4 = {};
 animal4.Name = "Noel";
-animal4.Species = "Rabbit";
-animal4.Breed = "English Spot Rabbit";
-animal4.Gender = "Female";
-animal4.Disposition = ["Adults-only home", "Special dietary needs"];
+animal4.Species = species.OTHER;
+animal4.Breed = breeds.Other.ENGLISH_SPOT_RABBIT;
+animal4.Gender = gender.FEMALE;
+animal4.Disposition = [dispositions.ADULTS_ONLY, dispositions.SPECIAL_DIET];
 animal4.Age = "8 years";
 animal4.DateCreated = "2021-03-01";
-animal4.Availability = "Available";
+animal4.Availability = availability.AVAILABLE;
 saveAnimal(animal4);
 
 const animal5 = {};
 animal5.Name = "Ziva";
-animal5.Species = "Dog";
-animal5.Breed = "Australian Shepherd";
-animal5.Gender = "Female";
-animal5.Disposition = ["Good with children", "Special dietary needs", "Energetic", "Good with other animals"];
+animal5.Species = species.DOG;
+animal5.Breed = breeds.Dog.AUSTRALIAN_SHEPHERD;
+animal5.Gender = gender.FEMALE;
+animal5.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.SPECIAL_DIET,
+  dispositions.ENERGETIC, dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal5.Age = "7 years";
 animal5.DateCreated = "2021-04-01";
-animal5.Availability = "Available";
+animal5.Availability = availability.PENDING;
 saveAnimal(animal5);
 
 const animal6 = {};
 animal6.Name = "Dobby";
-animal6.Species = "Dog";
-animal6.Breed = "Beagle";
-animal6.Gender = "Female";
-animal6.Disposition = ["Good with children", "Energetic", "Good with other animals"];
+animal6.Species = species.DOG;
+animal6.Breed = breeds.Dog.BEAGLE;
+animal6.Gender = gender.FEMALE;
+animal6.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
+  dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal6.Age = "4 years";
 animal6.DateCreated = "2020-07-01";
-animal6.Availability = "Available";
+animal6.Availability = availability.AVAILABLE;
 saveAnimal(animal6);
 
 const animal7 = {};
 animal7.Name = "Mr. Fluffy";
-animal7.Species = "Other";
-animal7.Breed = "Angora Rabbit";
-animal7.Gender = "Male";
-animal7.Disposition = ["Adults-only home", "Special needs"];
+animal7.Species = species.OTHER;
+animal7.Breed = breeds.Other.ANGORA_RABBIT;
+animal7.Gender = gender.MALE;
+animal7.Disposition = [dispositions.ADULTS_ONLY, dispositions.SPECIAL_NEEDS];
 animal7.Age = "10 years";
 animal7.DateCreated = "2020-08-01";
-animal7.Availability = "Available";
+animal7.Availability = availability.AVAILABLE;
 saveAnimal(animal7);
 
 const animal8 = {};
 animal8.Name = "Whiskers";
-animal8.Species = "Cat";
-animal8.Breed = "Sphynx";
-animal8.Gender = "Female";
-animal8.Disposition = ["Good with children"];
+animal8.Species = species.CAT;
+animal8.Breed = breeds.Other.OTHER;
+animal8.Gender = gender.FEMALE;
+animal8.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal8.Age = "6 months";
 animal8.DateCreated = "2021-02-01";
-animal8.Availability = "Available";
+animal8.Availability = availability.AVAILABLE;
 saveAnimal(animal8);
 
 const animal9 = {};
 animal9.Name = "Kylie";
-animal9.Species = "Dog";
-animal9.Breed = "Pomeranian";
-animal9.Gender = "Male";
-animal9.Disposition = ["Good with children", "Energetic"];
+animal9.Species = species.DOG;
+animal9.Breed = breeds.Dog.POMERANIAN;
+animal9.Gender = gender.MALE;
+animal9.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC];
 animal9.Age = "12 years";
 animal9.DateCreated = "2021-02-03";
-animal9.Availability = "Available";
+animal9.Availability = availability.PENDING;
 saveAnimal(animal9);
 
 const animal10 = {};
 animal10.Name = "Simba";
-animal10.Species = "Cat";
-animal10.Breed = "Bengal";
-animal10.Gender = "Female";
-animal10.Disposition = ["Good with children"];
+animal10.Species = species.CAT;
+animal10.Breed = breeds.Cat.BENGAL;
+animal10.Gender = gender.FEMALE;
+animal10.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal10.Age = "3 years";
 animal10.DateCreated = "2021-02-01";
-animal10.Availability = "Available";
+animal10.Availability = availability.AVAILABLE;
 saveAnimal(animal10);
 
 const animal11 = {};
 animal11.Name = "Tigger";
-animal11.Species = "Cat";
-animal11.Breed = "Persian";
-animal11.Gender = "Female";
-animal11.Disposition = ["Good with children"];
+animal11.Species = species.CAT;
+animal11.Breed = breeds.Cat.PERSIAN;
+animal11.Gender = gender.FEMALE;
+animal11.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal11.Age = "8 years";
 animal11.DateCreated = "2021-01-04";
-animal11.Availability = "Available";
+animal11.Availability = availability.PENDING;
 saveAnimal(animal11);
 
 const animal12 = {};
 animal12.Name = "Garfield";
-animal12.Species = "Cat";
-animal12.Breed = "Sphynx";
-animal12.Gender = "Female";
-animal12.Disposition = ["Good with children"];
+animal12.Species = species.CAT;
+animal12.Breed = breeds.Cat.SPHYNX;
+animal12.Gender = gender.FEMALE;
+animal12.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal12.Age = "2 years";
 animal12.DateCreated = "2021-03-01";
-animal12.Availability = "Available";
+animal12.Availability = availability.AVAILABLE;
 saveAnimal(animal12);
 
 const animal13 = {};
 animal13.Name = "Nala";
-animal13.Species = "Cat";
-animal13.Breed = "Bengal";
-animal13.Gender = "Female";
-animal13.Disposition = ["Good with children", "Needs companion animal"];
+animal13.Species = species.CAT;
+animal13.Breed = breeds.Cat.BENGAL;
+animal13.Gender = gender.FEMALE;
+animal13.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.NEEDS_COMPANION];
 animal13.Age = "9 years";
 animal13.DateCreated = "2020-09-01";
-animal13.Availability = "Available";
+animal13.Availability = availability.AVAILABLE;
 saveAnimal(animal13);
 
 const animal14 = {};
 animal14.Name = "Grumpy Cat";
-animal14.Species = "Cat";
-animal14.Breed = "Sphynx";
-animal14.Gender = "Female";
-animal14.Disposition = ["Good with children"];
+animal14.Species = species.CAT;
+animal14.Breed = breeds.Cat.RAGDOLL;
+animal14.Gender = gender.FEMALE;
+animal14.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal14.Age = "3 years";
 animal14.DateCreated = "2019-10-01";
-animal14.Availability = "Not Available";
+animal14.Availability = availability.NOT_AVAILABLE;
 saveAnimal(animal14);
 
 const aniaml15 = {};
 aniaml15.Name = "Cheshire";
-aniaml15.Species = "Cat";
-aniaml15.Breed = "Bengal";
-aniaml15.Gender = "Female";
-aniaml15.Disposition = ["Good with children"];
+aniaml15.Species = species.CAT;
+aniaml15.Breed = breeds.Cat.SIAMESE;
+aniaml15.Gender = gender.FEMALE;
+aniaml15.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 aniaml15.Age = "5 years";
 aniaml15.DateCreated = "2020-01-01";
-aniaml15.Availability = "Adopted";
+aniaml15.Availability = availability.ADOPTED;
 saveAnimal(aniaml15);
 
 const animal16 = {};
 animal16.Name = "Geico";
-animal16.Species = "Other";
-animal16.Breed = "Other";
-animal16.Gender = "Male";
-animal16.Disposition = ["Good with children", "Energetic"];
+animal16.Species = species.OTHER;
+animal16.Breed = breeds.Other.COMMON_LEOPARD_GECKO;
+animal16.Gender = gender.MALE;
+animal16.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC];
 animal16.Age = "1 year";
 animal16.DateCreated = "2021-07-01";
-animal16.Availability = "Available";
+animal16.Availability = availability.AVAILABLE;
 saveAnimal(animal16);

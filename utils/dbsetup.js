@@ -1,5 +1,5 @@
 // initialize datastore
-const { Datastore } = require('@google-cloud/datastore');
+const { Datastore } = require("@google-cloud/datastore");
 const kinds = require("../src/utils/kinds");
 const { gender } = require("../src/utils/gender");
 const { species } = require("../src/utils/species");
@@ -194,3 +194,22 @@ animal16.Age = "1 year";
 animal16.DateCreated = "2021-07-01";
 animal16.Availability = availability.AVAILABLE;
 saveAnimal(animal16);
+
+function saveUser(newUser) {
+  const userKey = datastore.key(kinds.USERS);
+  datastore.save({ key: userKey, data: newUser });
+}
+
+const user1 = {
+  name: "Jane Doe",
+  email: "janedoe@gmail.com",
+  password: "asdfoweifjwoiefawpeoviaweoviajewovijwpovij",
+};
+saveUser(user1);
+
+const user2 = {
+  name: "John Doe",
+  email: "johndoe@gmail.com",
+  password: "asdfoweifjwoiefawpeoviaweoviajewovijwpovij",
+};
+saveUser(user2);

@@ -20,9 +20,16 @@
   },
   "homepage": "https://github.com/drake6m/capstone#readme",
   "dependencies": {
+    "@google-cloud/connect-datastore": "^5.0.2",
     "@google-cloud/datastore": "^6.4.4",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.12.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "path": ""
   },
   "devDependencies": {

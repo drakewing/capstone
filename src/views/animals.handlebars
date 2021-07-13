@@ -8,20 +8,68 @@
     <!--Animal search criteria (left left 3/12 of page in full-size browser window)-->
     <div class="col-md-3 col-sm-12 float-md-none"> 
       <div class="container">
-        <div class="row search">
-          Animal Type:<br>
-          {each animal type here}
+        <div class="row category">
+          Species Type:<br>
         </div>
-        <div class="row search">
+        <div class="row">
+          <div class="searchSpecies">
+            {{#each species}}
+              <div class="form-check">
+                <input class="form-check-input species" type="radio" name="speciesRadio" value="{{this}}" id="{{this}}Radio">
+                <label class="form-check-label" for="flexRadioDefault{{this}}">{{this}}</label>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="row category">
           Breed:<br>
-          {each breed type here}
         </div>
-        <div class="row search">
+        <div class="row">
+          <div class="search">
+            {{#each breeds}}
+              <span id="{{@key}}radioSpan">
+                {{#each this}}
+                  <div class="form-check">
+                    <input class="form-check-input breed {{@../key}}Radio" type="radio" name="breedRadio" value="{{this}}" id="{{this}}Radio">
+                    <label class="form-check-label" for="{{this}}Radio">{{this}}</label>
+                  </div>
+                {{/each}}
+              </span>
+            {{/each}}
+          </div>
+        </div>
+        <div class="row category">
           Disposition:<br>
-          {each disposition here}   
+        </div>
+        <div class="row">
+          <div class="search">
+            {{#each dispositions}}
+                <div class="form-check">
+                  <input class="form-check-input dispositionCheck" type="checkbox" name="{{this}}" value="" id="defaultCheck{{this}}">
+                  <label class="form-check-label" for="defaultCheck{{this}}">
+                  {{this}}
+                  </label>
+                </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="row category">
+          Data Created:<br>
+        </div>
+        <div class="row">
+          <div class="searchDateCreated">
+              <div class="form-check">
+                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="descending=true" id="NewtoOldRadio" checked="true">
+                <label class="form-check-label" for="NewtoOldRadio">Newest to Oldest</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input dateCreated" type="radio" name="dateCreatedRadio" value="descending=false" id="OldtoNewRadio">
+                <label class="form-check-label" for="OldtoNewRadio">Oldest to Newest</label>
+              </div>
+          </div>
         </div>
         <div class="row searchButton">
-        <a href="#" class="btn btn-primary">Update search</a>
+          <button  id="filter" class="btn btn-primary">Filter results</a>
         </div>
       </div>
     </div>

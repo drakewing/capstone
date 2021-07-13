@@ -1,51 +1,41 @@
 const express = require("express");
-const { Datastore } = require("@google-cloud/datastore");
-const { fromDatastore } = require("../utils/db_helpers");
+const { species } = require("../utils/species");
+const { breeds } = require("../utils/breeds");
+const { dispositions } = require("../utils/dispositions");
+const { Animals } = require("../models/animals");
 
-// App data
 const router = express.Router();
-const datastore = new Datastore();
-const PETS = "Pets";
-const PAGE_SIZE = 6;
 
-// Model Functions
-async function getPets(cursor) {
-  let q = datastore.createQuery(PETS).limit(PAGE_SIZE);
-
-  if (cursor) {
-    q = q.start(cursor);
-  }
-
-  return datastore.runQuery(q).then((results) => {
-    const entities = results[0];
-    const info = results[1];
-
-    // send results in segments of 30 pets starting where the cursor indicates
-    if (info.moreResults !== Datastore.NO_MORE_RESULTS) {
-      return { pets: entities.map(fromDatastore), next: info.endCursor };
-    }
-    // if no results have been already sent, then send the first segment
-    return { pets: entities.map(fromDatastore) };
+router.get("/", async (req, res) => {
+  // loads full animals page
+  const context = await Animals.getAnimals(null, {
+    species: "Dog",
+    breed: "All Breeds",
+    descending: "true"
   });
-}
+  context.species = species;
+  context.breeds = breeds;
+  context.dispositions = dispositions;
+  res.render("animals", context);
+});
 
-// "Animal" specific routes
-router.get("/", (req, res) => {
-  // if user clicks the "next" button to see more results
+router.get("/partial", async (req, res) => {
+  console.log(req.query);
+  // loads partial animals page
+  let cursor = null;
   if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    getPets(cursor).then((petInventory) => {
-      console.log(petInventory);
-      petInventory.layout = false;
-      res.render("partials/animalsgrid", petInventory);
-    });
-  } else {
-    // loads full animals page
-    getPets(null).then((petInventory) => {
-      console.log(petInventory);
-      res.render("animals", petInventory);
-    });
+    cursor = req.query.cursor;
   }
+  const context = await Animals.getAnimals(cursor, req.query);
+  context.layout = false;
+  res.render("partials/animalsgrid", context);
+});
+
+router.post("/", async (req, res) => {
+  const newAnimal = new Animals(req.body);
+  await newAnimal.save();
+
+  res.status(204);
 });
 
 module.exports = router;

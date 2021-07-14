@@ -26,26 +26,15 @@
 </div>
 
 <div class="mb-3">
-<label for="disposition" class="form-label">Disposition</label>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="goodwithanimals">
-  <label class="form-check-label" for="goodwithanimals">
-    Good with other animals
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="goodwithchildren" checked>
-  <label class="form-check-label" for="goodwithchildren">
-    Good with children
-  </label>
-</div>
-
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="leashed" checked>
-  <label class="form-check-label" for="leashed">
-    Animal must be leashed at all times
-  </label>
-</div>
+  <label for="disposition" class="form-label">Disposition</label>
+    {{#each dispositions}}
+      <div class="form-check">
+        <input class="form-check-input dispositionCheck" type="checkbox" name="{{this}}" value="" id="defaultCheck{{this}}">
+        <label class="form-check-label" for="defaultCheck{{this}}">
+        {{this}}
+        </label>
+      </div>
+    {{/each}}
 </div>
 
 <div class="mb-3">

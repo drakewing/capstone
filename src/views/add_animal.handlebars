@@ -3,11 +3,11 @@
 <div class="container" id="heading">
   <h1>Add Animal</h1>
 </div>
-
+<form id="animalForm" action="/animals" method="post"></form>
 <div class=container>
 <div class="mb-3">
   <label for="animalName" class="form-label">Animal Name</label>
-  <input type="text" class="form-control" id="animalName" placeholder="Type animal name">
+  <input type="text" name="animalName" class="form-control" id="animalName" placeholder="Type animal name">
 </div>
 
 <div class="mb-3">
@@ -20,44 +20,75 @@
 </div>
 
 
+
 <div class="mb-3">
 <label for="animalBreed" class="form-label">Animal Breed</label>
- <input type="text" class="form-control" id="animalName" placeholder="Type animal breed">
+ <input type="text" name="animalBreed" class="form-control" id="animalBreed" placeholder="Type animal breed">
 </div>
+
+{{!-- </div class="mb-3">
+{{#each breeds}}
+<label for="{{this}}" class="form-label">Animal Breed</label>
+ <input type="text" name="{{this}}" class="form-control" id="{{this}}" placeholder="Type animal breed">
+ {{this}}
+ </div> --}}
+
+<div class="mb-3">
+<label for="age" class="form-label">Animal Age</label>
+ <input type="text" name="age" class="form-control" id="age" placeholder="Type animal age">
+</div>
+
 
 <div class="mb-3">
 <label for="disposition" class="form-label">Disposition</label>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="goodwithanimals">
-  <label class="form-check-label" for="goodwithanimals">
+  <input class="form-check-input" type="checkbox" value="" name ="goodWithAnimals" id="goodWithAnimals">
+  <label class="form-check-label" for="goodWithAnimals">
     Good with other animals
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="goodwithchildren" checked>
-  <label class="form-check-label" for="goodwithchildren">
+  <input class="form-check-input" type="checkbox" value="" name ="goodwithChildren" id="goodwithChildren">
+  <label class="form-check-label" for="goodwithChildren">
     Good with children
   </label>
 </div>
 
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="leashed" checked>
+  <input class="form-check-input" type="checkbox" value="" name="leadhed" id="leashed">
   <label class="form-check-label" for="leashed">
     Animal must be leashed at all times
   </label>
 </div>
 </div>
 
+
+<!--
+<div class="mb-3">
+{{#each dispositions}}
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" name ="{{this}}" id="{{this}}">
+    <label class="form-check-label" for="{{this}}">
+      {{this}}
+    </label>
+  </div>
+{{/each}}
+</div>
+-->
+
+
 <div class="mb-3">
 <label for="animalBreed" class="form-label">Other Description</label>
- <input type="text" class="form-control" id="description" placeholder="Type other description">
+ <input type="text" class="form-control" name="description" id="description" placeholder="Type any other description">
 </div>
 <br>
 <div class="d-flex flex-row-reverse">
-    <button type="button" class="btn btn-primary">Submit Animal</button>
+    <button type="submit" id="submitAnimal" class="btn btn-primary">Submit Animal</button>
 </div>
 
 </div>
+
+</form>
 
 
 <script src="/js/add_animal.js"></script>

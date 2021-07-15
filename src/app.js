@@ -128,12 +128,6 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
-
-app.get("/profile", (req, res) => {
-  res.render("profile");
-});
-
-
 app.get("/add_animal", (req, res) => {
   const context = {};
   context.species = species;
@@ -144,28 +138,7 @@ app.get("/add_animal", (req, res) => {
   res.render("add_animal", context);
 });
 
-app.get("/animals", (req, res) => {
-  // if user clicks the "next" button to see more results
-  if (Object.keys(req.query).includes("cursor")) {
-    const { cursor } = req.query;
-    getPets(cursor).then((petInventory) => {
-      console.log(petInventory);
-      petInventory.layout = false;
-      res.render("partials/animalsgrid", petInventory);
-    });
-  } else {
-    // loads full animals page
-    getPets(null).then((petInventory) => {
-      console.log(petInventory);
-      res.render("animals", petInventory);
-    });
-  }
-});
-
-// Routers
-
 // Routers for specific pages
-
 app.use("/animals", animals);
 app.use("/applications", applications);
 app.use("/login", login);

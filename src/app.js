@@ -14,6 +14,11 @@ const applications = require("./routers/applications");
 const login = require("./routers/login");
 const signup = require("./routers/signup");
 const users = require("./routers/users");
+const { species } = require("./utils/species");
+const { breeds } = require("./utils/breeds");
+const { dispositions } = require("./utils/dispositions");
+const { gender } = require("./utils/gender");
+const { availability } = require("./utils/availability");
 
 // App data
 const PORT = process.env.PORT || 8080;
@@ -130,7 +135,13 @@ app.get("/profile", (req, res) => {
 
 
 app.get("/add_animal", (req, res) => {
-  res.render("add_animal");
+  const context = {};
+  context.species = species;
+  context.gender = gender;
+  context.availability = availability;
+  context.breeds = breeds;
+  context.dispositions = dispositions;
+  res.render("add_animal", context);
 });
 
 app.get("/animals", (req, res) => {

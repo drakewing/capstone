@@ -12,6 +12,7 @@ const breeds = {
     FRENCH_BULLDOG: "French Bulldog",
     GERMAN_SHEPHERD: "German Shepherd",
     GOLDEN_RETREIVER: "Golden Retreiver",
+    LABRADOR: "Labrador",
     POODLE: "Poodle",
     POMERANIAN: "Pomeranian",
     PUG: "Pug",

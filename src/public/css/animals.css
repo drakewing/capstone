@@ -55,3 +55,19 @@
     margin-right: auto;
     width: 100%;
 }
+
+#pagination {
+    text-align: center;
+}
+
+#prevButton {
+    text-align: right;
+}
+
+#prev {
+    width: 100px;
+}
+
+#next {
+    width: 100px;
+}

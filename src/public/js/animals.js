@@ -120,8 +120,11 @@ $(document).on('click', '.form-check-input.species', () => {
   }
 });
 
-// next button
-$(document).on('click', '#next', () => {
+// continuously watches the css selectors for the click event
+// $( this ) will refer to the entire document not the button
+$(document).on('click', '#prev,#next', (event) => {
+  console.log(event.target.id);
+
   const nextCursor = encodeURIComponent($("#next").attr("data-cursor"));
   console.log(nextCursor);
 
@@ -130,7 +133,7 @@ $(document).on('click', '#next', () => {
 
   $.ajax({
     type: "GET",
-    url: `/animals/partial?cursor=${nextCursor}&${searchCriteria}`,
+    url: `/animals/partial?cursor=${nextCursor}&${searchCriteria}`, // TODO put direction in query string
     crossDomain: true,
     success: (data) => {
       $('#searchgrid').html(data);

@@ -1,3 +1,24 @@
+
+$(document).ready(() => {
+
+    // hide breed checkboxes for all unchecked species radio buttons
+    const radioButtons = document.getElementsByClassName("form-control animal type");
+    let species;
+    for (let i = 0; i < radioButtons.length; i += 1) {
+      species = radioButtons[i].value;
+      if (radioButtons[i].checked === true) {
+        const speciesSpan = document.getElementById(`${species}radioSpan`);
+        speciesSpan.hidden = false;
+      } else {
+        const speciesSpan = document.getElementById(`${species}radioSpan`);
+        speciesSpan.hidden = true;
+      }
+    }
+  });
+
+
+
+
 $('#submitAnimal').click(function(e) {
 
  

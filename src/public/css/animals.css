@@ -30,7 +30,7 @@
     overflow-y:scroll;
 }
 
-#noPets {
+#noAnimals {
     padding-top: 100px;
 }
 
@@ -70,4 +70,18 @@
 
 #next {
     width: 100px;
+}
+
+.animalCriteria {
+    height:110px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+
+#pageButton {
+    padding-top: 10px;
+}
+
+.cardOutline {
+    padding-bottom: 15px;
 }

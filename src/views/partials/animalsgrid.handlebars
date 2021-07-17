@@ -30,31 +30,35 @@
   </div>
 </div>
 
-{{#if pets}}
-    {{#each pets}}
+{{#if animals}}
+    {{#each animals}}
     <!--Table nested in the right 9/12 of the page. Each animal card is 4/12 columns of this nested section-->
     <div class="col-md-4">
-        <div class="card" style="">
-            <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title">{{this.Name}}</h5>
-                <div class="card-text">{{this.Species}} | {{this.Breed}}</div>
-                <div class="card-text">{{this.Gender}} | {{this.Age}}</div>
-                <!-- Data for Modal Screen display -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animalModal" 
-                data-name="{{this.Name}}" data-species="{{this.Species}}" data-gender="{{this.Gender}}"
-                data-breed="{{this.Breed}}" data-age="{{this.Age}}" data-disposition="{{this.Disposition}}"
-                data-availability="{{this.Availability}}" data-name="{{this.Name}}" 
-                data-dateCreated="{{this.DateCreated}}">Details</button>
+      <div class="cardOutline">
+        <div class="card h-100" style="">
+          <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
+          <div class="card-body">
+            <div class="animalCriteria">
+              <h5 class="card-title">{{this.Name}}</h5>
+              <div class="card-text">{{this.Species}} | {{this.Breed}}</div>
+              <div class="card-text">{{this.Gender}} | {{this.Age}}</div>
             </div>
+              <!-- Data for Modal Screen display -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animalModal" 
+              data-name="{{this.Name}}" data-species="{{this.Species}}" data-gender="{{this.Gender}}"
+              data-breed="{{this.Breed}}" data-age="{{this.Age}}" data-disposition="{{this.Disposition}}"
+              data-availability="{{this.Availability}}" data-name="{{this.Name}}" 
+              data-dateCreated="{{this.DateCreated}}">Details</button>
+          </div>  
         </div>
+      </div>
     </div>
     {{/each}}
-    <div class="container" id="pets">
+    <div class="container" id="pageButton">
       <div class="row">
         <div class="col-md-6">
           <div class="buttonBorder" id="prevButton">
-            {{#if next}}
+            {{#if prev}}
               <button data-cursor="{{prev}}" id="prev" class="btn btn-primary">Previous</button>
             {{/if}}
           </div>
@@ -69,7 +73,7 @@
       </div>
     </div>
 {{else}}
-    <div id="noPets">
+    <div id="noAnimals">
         <h3>There are no animals currently available for adoption</h3>
     </div>
 {{/if}}

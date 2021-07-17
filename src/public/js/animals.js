@@ -124,16 +124,17 @@ $(document).on('click', '.form-check-input.species', () => {
 // $( this ) will refer to the entire document not the button
 $(document).on('click', '#prev,#next', (event) => {
   console.log(event.target.id);
+  const direction = event.target.id;
 
-  const nextCursor = encodeURIComponent($("#next").attr("data-cursor"));
-  console.log(nextCursor);
+  const cursor = encodeURIComponent(event.target.dataset.cursor);
+  console.log(cursor);
 
   const searchCriteria = buildQueryString();
   console.log(searchCriteria);
 
   $.ajax({
     type: "GET",
-    url: `/animals/partial?cursor=${nextCursor}&${searchCriteria}`, // TODO put direction in query string
+    url: `/animals/partial?cursor=${cursor}&direction=${direction}&${searchCriteria}`,
     crossDomain: true,
     success: (data) => {
       $('#searchgrid').html(data);

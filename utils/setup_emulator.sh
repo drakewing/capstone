@@ -18,8 +18,8 @@ sleep 1
 echo "starting datastore emulator"
 gcloud beta emulators datastore start &
 
-echo "sleeping 3 seconds"
-sleep 3
+echo "sleeping 5 seconds"
+sleep 5
 
 echo "process id:"
 echo $!

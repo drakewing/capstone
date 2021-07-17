@@ -45,6 +45,12 @@ class Animals {
     } else {
       searchCriteria.descending = false;
     }
+
+    // if previous button clicked, reverse the order of the query
+    if (searchCriteria.direction === 'prev') {
+      searchCriteria.descending = !searchCriteria.descending;
+    }
+
     q.order('DateCreated', { descending: searchCriteria.descending });
 
     // if more results than the page limit, set the cursor to the first of the next page's results
@@ -56,12 +62,30 @@ class Animals {
     const entities = results[0];
     const info = results[1];
 
-    // send results in segments of PAGE_SIZE, starting where the cursor indicates
-    if (info.moreResults !== Datastore.NO_MORE_RESULTS) {
-      return { pets: entities.map(fromDatastore), next: info.endCursor };
+    // if previous button was clicked, reverse the entities
+    if (searchCriteria.direction === 'prev') {
+      entities.reverse();
     }
-    // if no results have been already sent, then send the first segment
-    return { pets: entities.map(fromDatastore) };
+
+    // check if more results in database and set the previous and next cursors. return results.
+    const returnValue = { animals: entities.map(fromDatastore) };
+
+    // set new previous and next button cursors depending on the direction
+    if (info.moreResults !== Datastore.NO_MORE_RESULTS) {
+      if (searchCriteria.direction === 'prev') {
+        returnValue.prev = info.endCursor;
+        returnValue.next = cursor;
+      } else {
+        returnValue.prev = cursor;
+        returnValue.next = info.endCursor;
+      }
+    } else if (searchCriteria.direction === 'prev') {
+      returnValue.next = cursor;
+    } else {
+      returnValue.prev = cursor;
+    }
+
+    return returnValue;
   }
 }
 

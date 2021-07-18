@@ -29,7 +29,7 @@ saveAnimal(animal1);
 const animal2 = {};
 animal2.Name = "Peanut";
 animal2.Species = species.DOG;
-animal2.Breed = breeds.Dog.YORKIE;
+animal2.Breed = breeds.Dog.YORKSHIRE_TERRIER;
 animal2.Gender = gender.MALE;
 animal2.Disposition = [dispositions.SPECIAL_NEEDS, dispositions.ADULTS_ONLY,
   dispositions.ANIMAL_MUST_BE_LEASHED_AT_ALL_TIMES];
@@ -57,7 +57,7 @@ animal4.Breed = breeds.Other.ENGLISH_SPOT_RABBIT;
 animal4.Gender = gender.FEMALE;
 animal4.Disposition = [dispositions.ADULTS_ONLY, dispositions.SPECIAL_DIET];
 animal4.Age = "8 years";
-animal4.DateCreated = "2021-03-01";
+animal4.DateCreated = "2021-03-03";
 animal4.Availability = availability.AVAILABLE;
 saveAnimal(animal4);
 
@@ -103,7 +103,7 @@ animal8.Breed = breeds.Other.OTHER;
 animal8.Gender = gender.FEMALE;
 animal8.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal8.Age = "6 months";
-animal8.DateCreated = "2021-02-01";
+animal8.DateCreated = "2021-02-15";
 animal8.Availability = availability.AVAILABLE;
 saveAnimal(animal8);
 
@@ -125,7 +125,7 @@ animal10.Breed = breeds.Cat.BENGAL;
 animal10.Gender = gender.FEMALE;
 animal10.Disposition = [dispositions.GOOD_WITH_CHILDREN];
 animal10.Age = "3 years";
-animal10.DateCreated = "2021-02-01";
+animal10.DateCreated = "2021-02-20";
 animal10.Availability = availability.AVAILABLE;
 saveAnimal(animal10);
 
@@ -158,7 +158,7 @@ animal13.Breed = breeds.Cat.BENGAL;
 animal13.Gender = gender.FEMALE;
 animal13.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.NEEDS_COMPANION];
 animal13.Age = "9 years";
-animal13.DateCreated = "2020-09-01";
+animal13.DateCreated = "2020-09-02";
 animal13.Availability = availability.AVAILABLE;
 saveAnimal(animal13);
 
@@ -210,12 +210,12 @@ saveAnimal(animal17);
 const animal18 = {};
 animal18.Name = "Lady";
 animal18.Species = species.DOG;
-animal1.Breed = breeds.Dog.LABRADOR;
+animal18.Breed = breeds.Dog.LABRADOR;
 animal18.Gender = gender.FEMALE;
 animal18.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal18.Age = "5 years";
-animal18.DateCreated = "2021-06-01";
+animal18.DateCreated = "2021-06-02";
 animal18.Availability = availability.AVAILABLE;
 saveAnimal(animal18);
 
@@ -227,7 +227,7 @@ animal19.Gender = gender.MALE;
 animal19.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal19.Age = "5 years";
-animal19.DateCreated = "2021-05-01";
+animal19.DateCreated = "2021-05-02";
 animal19.Availability = availability.AVAILABLE;
 saveAnimal(animal19);
 
@@ -239,7 +239,7 @@ animal20.Gender = gender.MALE;
 animal20.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal20.Age = "5 years";
-animal20.DateCreated = "2021-04-01";
+animal20.DateCreated = "2021-04-02";
 animal20.Availability = availability.AVAILABLE;
 saveAnimal(animal20);
 
@@ -251,7 +251,7 @@ animal21.Gender = gender.FEMALE;
 animal21.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal21.Age = "5 years";
-animal21.DateCreated = "2021-03-01";
+animal21.DateCreated = "2021-03-02";
 animal21.Availability = availability.AVAILABLE;
 saveAnimal(animal21);
 
@@ -263,7 +263,7 @@ animal22.Gender = gender.MALE;
 animal22.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal22.Age = "5 years";
-animal22.DateCreated = "2021-02-01";
+animal22.DateCreated = "2021-02-10";
 animal22.Availability = availability.AVAILABLE;
 saveAnimal(animal22);
 
@@ -347,7 +347,7 @@ animal29.Gender = gender.MALE;
 animal29.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal29.Age = "5 years";
-animal29.DateCreated = "2020-08-01";
+animal29.DateCreated = "2020-08-02";
 animal29.Availability = availability.AVAILABLE;
 saveAnimal(animal29);
 
@@ -359,7 +359,7 @@ animal30.Gender = gender.MALE;
 animal30.Disposition = [dispositions.GOOD_WITH_CHILDREN, dispositions.ENERGETIC,
   dispositions.GOOD_WITH_OTHER_ANIMALS];
 animal30.Age = "5 years";
-animal30.DateCreated = "2020-07-01";
+animal30.DateCreated = "2020-07-02";
 animal30.Availability = availability.AVAILABLE;
 saveAnimal(animal30);
 

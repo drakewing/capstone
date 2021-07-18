@@ -18,43 +18,18 @@
   {{/each}}
 </select>
 </div>
-<!--
-{{!-- <div class="mb-3">
-{{!-- <label for="animalBreed" class="form-label">Animal Breed</label>
- <input type="text" class="form-control" id="animalName" placeholder="Type animal breed"> --}}
-
- <label for="animalBreed" class="form-label">Animal Breed</label>
-   {{!-- <select class="form-control animal breed"> --}}
-  {{!-- {{#each breeds}}
-  <option>{{this}}</option>
-  {{/each}} --}}
-  <select class="form-control animal type" class="form-check-input breed {{@../key}}Radio" value="{{this}}" id="{{this}}Radio"></select>
-
-              {{#each breeds}}
-              <span id="{{@key}}radioSpan">
-                {{#each this}}
-                  <div class="form-check">
-                    <option class="form-check-input breed {{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
-                    {{!-- <<label class="form-check-label" for="{{this}}Radio">{{this}}</label> --}}
-                  </div>
-                {{/each}}
-              </span>
-            {{/each}}
-            </select>
-  {{!-- </select> --}}
-</div> --}}  -->
 
 <div class="mb-3">
- <label for="animalBreed" class="form-label">Animal Breed</label>
- <select class="form-select animal type" aria-label="Default select example breed" id="{{@../key}}Radio" value="{{this}}" id="{{this}}Radio">
- {{#each breeds}}
- <span id="{{@key}}radioSpan">
- {{#each this}}
- <option class="breed" id="{{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
- {{/each}}
- </span>
- {{/each}}
- </select>
+  <label for="animalBreed" class="form-label">Animal Breed</label>
+  <select class="form-select animal type" aria-label="Default select example breed" id="{{@../key}}Radio" value="{{this}}" id="{{this}}Radio">
+    {{#each breeds}}
+    <span id="{{@key}}radioSpan">
+      {{#each this}}
+          <option class="breed" id="{{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
+      {{/each}}
+      </span>
+    {{/each}}
+  </select>
 </div>
 
 <div class="mb-3">
@@ -79,6 +54,5 @@
 </div>
 
 </div>
-
 
 <script src="/js/add_animal.js"></script>

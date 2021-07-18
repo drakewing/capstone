@@ -1,0 +1,47 @@
+indexes:
+- kind: Animals
+  properties:
+  - name: Species
+  - name: DateCreated
+    direction: asc
+- kind: Animals
+  properties:
+  - name: Species
+  - name: DateCreated
+    direction: desc
+- kind: Animals
+  properties:
+  - name: Species
+  - name: Breed
+  - name: DateCreated
+    direction: asc
+- kind: Animals
+  properties:
+  - name: Species
+  - name: Breed
+  - name: DateCreated
+    direction: desc
+- kind: Animals
+  properties:
+  - name: Disposition
+  - name: DateCreated
+    direction: asc
+- kind: Animals
+  properties:
+  - name: Disposition
+  - name: DateCreated
+    direction: desc
+- kind: Animals
+  properties:
+  - name: Species
+  - name: Breed
+  - name: Disposition
+  - name: DateCreated
+    direction: asc
+- kind: Animals
+  properties:
+  - name: Species
+  - name: Breed
+  - name: Disposition
+  - name: DateCreated
+    direction: desc

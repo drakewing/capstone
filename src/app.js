@@ -12,6 +12,7 @@ const { User } = require("./models/user");
 const animals = require("./routers/animals");
 const applications = require("./routers/applications");
 const login = require("./routers/login");
+const logout = require("./routers/logout");
 const signup = require("./routers/signup");
 const users = require("./routers/users");
 const { species } = require("./utils/species");
@@ -59,6 +60,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Auth middleware
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 // Sign up flow
 passport.use(
@@ -109,7 +114,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.entity.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
@@ -120,7 +125,6 @@ passport.deserializeUser((id, done) => {
 
 // Page routes
 app.get("/", (req, res) => {
-  console.log(req.user);
   res.render("home");
 });
 
@@ -142,6 +146,7 @@ app.get("/add_animal", (req, res) => {
 app.use("/animals", animals);
 app.use("/applications", applications);
 app.use("/login", login);
+app.use("/logout", logout);
 app.use("/signup", signup);
 app.use("/users", users);
 

@@ -20,11 +20,7 @@ class User {
    * Allows for empty instantiation (useful during signups).
    */
   constructor(entity) {
-    if (entity) {
-      this.entity = fromDatastore(entity);
-    } else {
-      this.entity = {};
-    }
+    Object.assign(this, entity);
   }
 
   /**
@@ -32,18 +28,18 @@ class User {
    */
   async save() {
     const newUser = {
-      key: this.entity[Datastore.KEY] || datastore.key(kinds.USERS),
-      data: this.entity,
+      key: this[Datastore.KEY] || datastore.key(kinds.USERS),
+      data: this,
     };
     await datastore.save(newUser);
-    this.entity.id = newUser.key.id;
+    this.id = newUser.key.id;
   }
 
   /**
    * Sets the user's email to a new value. Doesn't do any validation.
    */
   setEmail(email) {
-    this.entity.email = email;
+    this.email = email;
   }
 
   /**
@@ -51,14 +47,14 @@ class User {
    */
   async setPassword(password) {
     const hash = await bcrypt.hash(password, saltRounds);
-    this.entity.password = hash;
+    this.password = hash;
   }
 
   /**
    * Checks a password for correctness by comparing hashes.
    */
   async validPassword(password) {
-    return bcrypt.compare(password, this.entity.password);
+    return bcrypt.compare(password, this.password);
   }
 
   /**

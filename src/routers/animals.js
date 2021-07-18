@@ -28,6 +28,7 @@ router.get("/partial", async (req, res) => {
   }
   const context = await Animals.getAnimals(cursor, req.query);
   context.layout = false;
+  console.log(context);
   res.render("partials/animalsgrid", context);
 });
 

@@ -25,7 +25,7 @@
     {{#each breeds}}
     <span id="{{@key}}radioSpan">
       {{#each this}}
-          <option class="breed" id="{{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
+          <option class="breed {{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
       {{/each}}
       </span>
     {{/each}}

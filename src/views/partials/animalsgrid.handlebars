@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <div class="card" style="">
-          <img src="/images/A_Basenji_puppy.jpg" alt="Animal Photo" class="animalModalPhoto">
+          <img src="/images/A_Basenji_puppy.jpg" id="photo" alt="Animal Photo" class="animalModalPhoto">
           <ul id="animalDetailsList">
               <li >Gender: <span id="gender"></span> </li>
               <li >Age: <span id="age"></span></li>
@@ -36,7 +36,7 @@
     <div class="col-md-4">
       <div class="cardOutline">
         <div class="card h-100" style="">
-          <img src="/images/A_Basenji_puppy.jpg" class="card-img-top" alt="">
+          <img src="{{this.Photo}}" class="card-img-top" alt="">
           <div class="card-body">
             <div class="animalCriteria">
               <h5 class="card-title">{{this.Name}}</h5>
@@ -48,7 +48,7 @@
               data-name="{{this.Name}}" data-species="{{this.Species}}" data-gender="{{this.Gender}}"
               data-breed="{{this.Breed}}" data-age="{{this.Age}}" data-disposition="{{this.Disposition}}"
               data-availability="{{this.Availability}}" data-name="{{this.Name}}" 
-              data-dateCreated="{{this.DateCreated}}">Details</button>
+              data-dateCreated="{{this.DateCreated}}" data-photo="{{this.Photo}}">Details</button>
           </div>  
         </div>
       </div>

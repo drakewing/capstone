@@ -153,6 +153,7 @@ $(document).on('show.bs.modal', (event) => {
   const button = event.relatedTarget;
 
   // Extract info from data-* attributes
+  const photo = button.getAttribute('data-photo');
   const gender = button.getAttribute('data-gender');
   const breed = button.getAttribute('data-breed');
   const age = button.getAttribute('data-age');
@@ -165,6 +166,7 @@ $(document).on('show.bs.modal', (event) => {
   // Update the modal's content
   $('.modal-title').text(name);
   const modalBody = $('.modal-body');
+  modalBody.find('#photo').attr('src', photo);
   modalBody.find('#gender').text(gender);
   modalBody.find('#age').text(age);
   modalBody.find('#species').text(species);

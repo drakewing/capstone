@@ -21,6 +21,11 @@ class Animals {
     this.id = newAnimal.key.id;
   }
 
+  static async deleteAnimal(id) {
+    const key = datastore.key([kinds.ANIMALS, parseInt(id, 10)]);
+    await datastore.delete(key);
+  }
+
   static async getAnimals(cursor, searchCriteria) {
     let q = datastore.createQuery(kinds.ANIMALS).limit(PAGE_SIZE);
     q.filter('Species', '=', searchCriteria.species);
@@ -54,7 +59,7 @@ class Animals {
     q.order('DateCreated', { descending: searchCriteria.descending });
 
     // if more results than the page limit, set the cursor to the first of the next page's results
-    if (cursor) {
+    if (cursor && cursor !== 'undefined') {
       q = q.start(cursor);
     }
 

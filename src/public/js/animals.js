@@ -162,10 +162,12 @@ $(document).on('show.bs.modal', (event) => {
   const disposition = button.getAttribute('data-disposition');
   const dateCreated = button.getAttribute('data-dateCreated');
   const name = button.getAttribute('data-name');
+  const id = button.getAttribute('data-id');
 
   // Update the modal's content
   $('.modal-title').text(name);
   const modalBody = $('.modal-body');
+  const modalFooter = $('.modal-footer');
   modalBody.find('#photo').attr('src', photo);
   modalBody.find('#gender').text(gender);
   modalBody.find('#age').text(age);
@@ -173,9 +175,54 @@ $(document).on('show.bs.modal', (event) => {
   modalBody.find('#breed').text(breed);
   modalBody.find('#availability').text(availability);
   modalBody.find('#dateCreated').text(dateCreated);
+  modalFooter.find('#deleteAnimal').attr('data-id', id);
+
   const dispositionArray = disposition.split(",");
   $("#disposition").text("");
   for (let i = 0; i < dispositionArray.length; i += 1) {
     $("#disposition").append($("<li>").text(dispositionArray[i]));
   }
+});
+
+function displayGrid() {
+  $('#animalModal').modal('toggle');
+  // use the previous cursor but set direction to "next"
+  const direction = 'next';
+  const cursor = encodeURIComponent($('#prev').attr('data-cursor'));
+  console.log(cursor);
+
+  const searchCriteria = buildQueryString();
+  console.log(searchCriteria);
+
+  $.ajax({
+    type: "GET",
+    url: `/animals/partial?cursor=${cursor}&direction=${direction}&${searchCriteria}`,
+    crossDomain: true,
+    success: (data) => {
+      $('#searchgrid').html(data);
+    },
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
+}
+
+// delete an animal (admin use only)
+$(document).on('click', '#deleteAnimal', (event) => {
+  // delete animal here
+  const button = event.target;
+  const id = button.getAttribute('data-id');
+  $.ajax({
+    type: "DELETE",
+    url: `/animals/${id}`,
+    crossDomain: true,
+    success: displayGrid,
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
 });

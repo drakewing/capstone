@@ -35,8 +35,12 @@ router.get("/partial", async (req, res) => {
 router.post("/", async (req, res) => {
   const newAnimal = new Animals(req.body);
   await newAnimal.save();
+  res.status(204).end();
+});
 
-  res.status(204);
+router.delete("/:id", async (req, res) => {
+  await Animals.deleteAnimal(req.params.id);
+  res.status(204).end();
 });
 
 module.exports = router;

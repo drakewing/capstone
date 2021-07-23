@@ -85,3 +85,13 @@
 .cardOutline {
     padding-bottom: 15px;
 }
+
+/* only scale-down thumbnials when window is smaller 
+   than medium breakpoint */
+@media (min-width: 768px) {
+    .thumbnail {
+        width: 100%;
+        height: 13vw;
+        object-fit: scale-down;
+    }
+}

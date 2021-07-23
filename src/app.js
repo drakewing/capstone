@@ -132,6 +132,10 @@ app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
+app.get("/news", (req, res) => {
+  res.render("news");
+});
+
 app.get("/add_animal", (req, res) => {
   const context = {};
   context.species = species;

@@ -142,6 +142,12 @@ app.get("/news", (req, res) => {
 });
 
 app.get("/add_animal", (req, res) => {
+  if (!req.user || !isAdmin(req.user.email)) {
+    res.status(401);
+    res.render("401");
+    return;
+  }
+
   const context = {};
   context.species = species;
   context.gender = gender;

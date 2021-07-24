@@ -1,10 +1,23 @@
 const express = require("express");
+const Multer = require('multer');
+const { Storage } = require('@google-cloud/storage');
 const { species } = require("../utils/species");
 const { breeds } = require("../utils/breeds");
 const { dispositions } = require("../utils/dispositions");
 const { Animals } = require("../models/animals");
 
 const router = express.Router();
+
+// Multer is required to process file uploads and make them available via
+// req.files.
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+  },
+});
+
+const storage = new Storage();
 
 router.get("/", async (req, res) => {
   // loads full animals page
@@ -32,7 +45,8 @@ router.get("/partial", async (req, res) => {
   res.render("partials/animalsgrid", context);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", multer.none(), async (req, res) => {
+  console.log(req.body);
   const newAnimal = new Animals(req.body);
   await newAnimal.save();
   res.status(204).end();

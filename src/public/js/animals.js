@@ -34,6 +34,7 @@ function buildQueryString() {
   const dispositionCriteria = [];
   for (let i = 0; i < dispositionCheckBoxes.length; i += 1) {
     if (dispositionCheckBoxes[i].checked === true) {
+      // TODO shouldn't this be value instead of name???
       dispositionCriteria.push(encodeURIComponent(dispositionCheckBoxes[i].name));
     }
   }

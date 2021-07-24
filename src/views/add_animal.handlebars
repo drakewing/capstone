@@ -4,15 +4,15 @@
   <h1>Add Animal</h1>
 </div>
 <div class="container">
-  <form>
+  <form id="addAnimal">
     <div class="mb-3">
-      <label for="animalName" class="form-label">Animal Name</label>
-      <input type="text" class="form-control" id="animalName" placeholder="Type animal name">
+      <label for="Name" class="form-label">Animal Name</label>
+      <input type="text" class="form-control" name="Name" id="Name" placeholder="Type animal name">
     </div>
 
     <div class="mb-3">
-    <label for="animalType" class="form-label">Animal Type</label>
-      <select class="form-control animal type">
+    <label for="Species" class="form-label">Animal Species</label>
+      <select id="Species" name="Species" class="form-control animal type">
       {{#each species}}
       <option>{{this}}</option>
       {{/each}}
@@ -21,11 +21,11 @@
 
     <div class="mb-3">
       <label for="animalBreed" class="form-label">Animal Breed</label>
-      <select class="form-select animal type" aria-label="Default select example breed" id="{{@../key}}Radio" value="{{this}}" id="{{this}}Radio">
+      <select class="form-select animal type" name="Breed" aria-label="Default select example breed" id="{{@../key}}Radio" value="{{this}}" id="{{this}}Radio">
         {{#each breeds}}
         <span id="{{@key}}radioSpan">
           {{#each this}}
-              <option class="breed {{@../key}}Radio" type="option" name="breedRadio" value="{{this}}" id="{{this}}Radio">{{this}}</option>
+              <option class="breed {{@../key}}Radio" type="option" value="{{this}}" id="{{this}}Radio">{{this}}</option>
           {{/each}}
           </span>
         {{/each}}
@@ -36,27 +36,22 @@
       <label for="disposition" class="form-label">Disposition</label>
         {{#each dispositions}}
           <div class="form-check">
-            <input class="form-check-input dispositionCheck" type="checkbox" name="{{this}}" value="" id="defaultCheck{{this}}">
+            <input class="form-check-input dispositionCheck" type="checkbox" name="Disposition" value="{{this}}" id="defaultCheck{{this}}">
             <label class="form-check-label" for="defaultCheck{{this}}">
             {{this}}
             </label>
           </div>
         {{/each}}
     </div>
-
-    <div class="mb-3">
-      <label for="animalBreed" class="form-label">Other Description</label>
-      <input type="text" class="form-control" id="description" placeholder="Type other description">
-    </div>
     
     <div class="mb-3">
       <label for="myFile" type="text" class="form-label">Animal image file: </label>
-      <input type="file" class="form-control" id="myFile" name="filename">
+      <input type="file" class="form-control" id="myFile" name="photo">
     </div>
 
     <br>
     <div class="d-flex flex-row-reverse">
-        <button type="button" class="btn btn-primary">Submit Animal</button>
+        <button type="submit" class="btn btn-primary">Submit Animal</button>
     </div>
 
     </div>

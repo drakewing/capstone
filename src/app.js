@@ -24,12 +24,17 @@ const { availability } = require("./utils/availability");
 // App data
 const PORT = process.env.PORT || 8080;
 const app = express();
+const ADMIN_EMAIL = "admin@shelter.com";
+const isAdmin = (email) => email === ADMIN_EMAIL;
 
 // handlebars template engine
 app.engine(
   "handlebars",
   exphbs({
     partialsDir: path.join(__dirname, "/views/partials/"),
+    helpers: {
+      isAdmin,
+    },
   })
 );
 app.set("views", path.join(__dirname, "views"));
@@ -137,6 +142,12 @@ app.get("/news", (req, res) => {
 });
 
 app.get("/add_animal", (req, res) => {
+  if (!req.user || !isAdmin(req.user.email)) {
+    res.status(401);
+    res.render("401");
+    return;
+  }
+
   const context = {};
   context.species = species;
   context.gender = gender;
@@ -158,3 +169,5 @@ app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);
   console.log("Press Ctrl+C to quit");
 });
+
+module.exports.ADMIN_EMAIL = ADMIN_EMAIL;

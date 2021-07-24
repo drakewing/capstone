@@ -22,7 +22,9 @@
 					<a class="nav-link" href="/">Home</a>
 					<a class="nav-link" href="/animals">Animals</a>
 					<a class="nav-link" href="/news">News</a>
+          {{#if (isAdmin user.email)}}
 					<a class="nav-link" href="/add_animal">Add Animal</a>
+          {{/if}}
 				</div>
 				<div class="navbar-nav navbar-right">
           {{#if user}}

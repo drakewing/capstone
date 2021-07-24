@@ -31,6 +31,9 @@ app.engine(
   "handlebars",
   exphbs({
     partialsDir: path.join(__dirname, "/views/partials/"),
+    helpers: {
+      isAdmin: (email) => email === ADMIN_EMAIL,
+    },
   })
 );
 app.set("views", path.join(__dirname, "views"));

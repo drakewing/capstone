@@ -1,2 +1,4 @@
 node_modules/
 matt_debug/
+WEB-INF/
+utils/env.yaml

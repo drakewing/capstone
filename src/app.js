@@ -24,6 +24,7 @@ const { availability } = require("./utils/availability");
 // App data
 const PORT = process.env.PORT || 8080;
 const app = express();
+const ADMIN_EMAIL = "admin@shelter.com";
 
 // handlebars template engine
 app.engine(
@@ -158,3 +159,5 @@ app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`);
   console.log("Press Ctrl+C to quit");
 });
+
+module.exports.ADMIN_EMAIL = ADMIN_EMAIL;

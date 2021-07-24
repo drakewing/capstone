@@ -25,6 +25,7 @@ const { availability } = require("./utils/availability");
 const PORT = process.env.PORT || 8080;
 const app = express();
 const ADMIN_EMAIL = "admin@shelter.com";
+const isAdmin = (email) => email === ADMIN_EMAIL;
 
 // handlebars template engine
 app.engine(
@@ -32,7 +33,7 @@ app.engine(
   exphbs({
     partialsDir: path.join(__dirname, "/views/partials/"),
     helpers: {
-      isAdmin: (email) => email === ADMIN_EMAIL,
+      isAdmin,
     },
   })
 );

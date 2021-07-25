@@ -1,9 +1,11 @@
 const express = require("express");
 const Multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
+const { v4: uuidv4 } = require('uuid');
 const { species } = require("../utils/species");
 const { breeds } = require("../utils/breeds");
 const { dispositions } = require("../utils/dispositions");
+const { availability } = require("../utils/availability");
 const { Animals } = require("../models/animals");
 
 const router = express.Router();
@@ -18,6 +20,9 @@ const multer = Multer({
 });
 
 const storage = new Storage();
+
+// A bucket is a container for objects (files).
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 router.get("/", async (req, res) => {
   // loads full animals page
@@ -45,11 +50,36 @@ router.get("/partial", async (req, res) => {
   res.render("partials/animalsgrid", context);
 });
 
-router.post("/", multer.none(), async (req, res) => {
-  console.log(req.body);
-  const newAnimal = new Animals(req.body);
-  await newAnimal.save();
-  res.status(204).end();
+router.post("/", multer.single('file'), async (req, res, next) => {
+  if (!req.file) {
+    res.status(400).send('No file uploaded.');
+    return;
+  }
+
+  const filename = `${uuidv4()}.jpg`;
+
+  // Create a new blob in the bucket and upload the file data.
+  const blob = bucket.file(filename);
+  const blobStream = blob.createWriteStream({
+    resumable: false,
+  });
+
+  blobStream.on('error', (err) => {
+    next(err);
+  });
+
+  blobStream.on('finish', async () => {
+    // The public URL can be used to directly access the file via HTTP.
+    console.log(req.body);
+    req.body.DateCreated = new Date(Date.now()).toISOString();
+    req.body.Availability = availability.AVAILABLE;
+    req.body.Photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    const newAnimal = new Animals(req.body);
+    await newAnimal.save();
+    res.status(204).end();
+  });
+
+  blobStream.end(req.file.buffer);
 });
 
 router.delete("/:id", async (req, res) => {

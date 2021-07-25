@@ -1,22 +1,26 @@
-$(document).ready(() => {
-  // Check the first radio button when page loads
-  document.getElementsByClassName("form-check-input species")[0].checked = true;
-  document.getElementsByClassName("form-check-input breed")[0].checked = true;
-
-  // hide breed checkboxes for all unchecked species radio buttons
-  const radioButtons = document.getElementsByClassName("form-check-input species");
+function updateBreed() {
+// hide breed checkboxes for all unselected species dropdown
+  const speciesOption = document.getElementsByClassName("speciesOption");
   let species;
-  for (let i = 0; i < radioButtons.length; i += 1) {
-    species = radioButtons[i].value;
-    if (radioButtons[i].checked === true) {
-      const speciesSpan = document.getElementById(`${species}radioSpan`);
-      speciesSpan.hidden = false;
+  for (let i = 0; i < speciesOption.length; i += 1) {
+    species = speciesOption[i].value;
+    if (speciesOption[i].selected === true) {
+      const speciesSpan = document.getElementsByClassName(`${species}Option`);
+      for (let j = 0; j < speciesSpan.length; j += 1) {
+        speciesSpan[j].hidden = false;
+      }
     } else {
-      const speciesSpan = document.getElementById(`${species}radioSpan`);
-      speciesSpan.hidden = true;
+      const speciesSpan = document.getElementsByClassName(`${species}Option`);
+      for (let j = 0; j < speciesSpan.length; j += 1) {
+        speciesSpan[j].hidden = true;
+      }
     }
   }
-});
+}
+
+$(document).ready(updateBreed);
+
+$('#speciesSelect').change(updateBreed);
 
 $('#addAnimal').submit((e) => {
   // prevent default form behavior (avoid the page reload)

@@ -11,23 +11,35 @@
     </div>
 
     <div class="mb-3">
-    <label for="Species" class="form-label">Animal Species</label>
-      <select id="Species" name="Species" class="form-control animal type">
-      {{#each species}}
+    <label for="Gender" class="form-label">Animal Gender</label>
+      <select id="Gender" name="Gender" class="form-control animal type">
+      {{#each gender}}
       <option>{{this}}</option>
       {{/each}}
     </select>
     </div>
 
     <div class="mb-3">
-      <label for="animalBreed" class="form-label">Animal Breed</label>
-      <select class="form-select animal type" name="Breed" aria-label="Default select example breed" id="{{@../key}}Radio" value="{{this}}" id="{{this}}Radio">
+      <label for="Age" class="form-label">Animal Age</label>
+      <input type="text" class="form-control" name="Age" id="Age" placeholder="Type animal age">
+    </div>
+
+    <div class="mb-3">
+    <label for="speciesSelect" class="form-label">Animal Species</label>
+      <select id="speciesSelect" name="Species" class="form-control species">
+      {{#each species}}
+      <option class="speciesOption">{{this}}</option>
+      {{/each}}
+    </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="breedSelect" class="form-label">Animal Breed</label>
+      <select class="form-select breed" name="Breed" aria-label="Default select example breed" id="breedSelect">
         {{#each breeds}}
-        <span id="{{@key}}radioSpan">
           {{#each this}}
-              <option class="breed {{@../key}}Radio" type="option" value="{{this}}" id="{{this}}Radio">{{this}}</option>
+              <option class="breed {{@../key}}Option" type="option" value="{{this}}" id="{{this}}Option">{{this}}</option>
           {{/each}}
-          </span>
         {{/each}}
       </select>
     </div>
@@ -43,10 +55,10 @@
           </div>
         {{/each}}
     </div>
-    
+
     <div class="mb-3">
-      <label for="myFile" type="text" class="form-label">Animal image file: </label>
-      <input type="file" class="form-control" id="myFile" name="photo">
+      <label for="file" type="text" class="form-label">Animal image file: </label>
+      <input type="file" class="form-control" name='file' id="file" name="photo">
     </div>
 
     <br>

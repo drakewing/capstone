@@ -21,8 +21,10 @@ const multer = Multer({
 
 const storage = new Storage();
 
+const bucketName = 'capstone-project-318221.appspot.com';
+
 // A bucket is a container for objects (files).
-const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+const bucket = storage.bucket(bucketName);
 
 router.get("/", async (req, res) => {
   // loads full animals page

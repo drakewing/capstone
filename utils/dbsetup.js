@@ -494,10 +494,11 @@ const user1 = {
 };
 saveUser(user1);
 
-const buildUser2 = async () => {
-  const user2 = new User();
-  user2.setEmail("admin@shelter.com");
-  await user2.setPassword(secrets.ADMIN_PASSWORD);
-  user2.save();
+const buildUser = async (email, password) => {
+  const user = new User();
+  user.setEmail("admin@shelter.com");
+  await user.setPassword(secrets.ADMIN_PASSWORD);
+  user.save();
 };
-buildUser2();
+buildUser("admin@shelter.com", secrets.ADMIN_PASSWORD);
+buildUser("johndoe@gmail.com", secrets.ADMIN_PASSWORD);

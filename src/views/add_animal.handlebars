@@ -1,5 +1,23 @@
 <link rel="stylesheet" href="/css/add_animal.css" type="text/css">
 
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="animalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="animalModalLabel">Success!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <h3>Would you like to add another animal?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="addAnother">Yes</button>
+        <button type="button" class="btn btn-secondary" id="doneAdding">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container" id="heading">
   <h1>Add Animal</h1>
 </div>
@@ -65,8 +83,7 @@
     <div class="d-flex flex-row-reverse">
         <button type="submit" class="btn btn-primary">Submit Animal</button>
     </div>
-
-    </div>
-
   </form>
+</div>
+
 <script src="/js/add_animal.js"></script>

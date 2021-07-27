@@ -36,6 +36,7 @@ router.get("/", async (req, res) => {
   context.species = species;
   context.breeds = breeds;
   context.dispositions = dispositions;
+  context.Bucket = `https://storage.googleapis.com/${bucketName}`;
   res.render("animals", context);
 });
 
@@ -48,6 +49,7 @@ router.get("/partial", async (req, res) => {
   }
   const context = await Animals.getAnimals(cursor, req.query);
   context.layout = false;
+  context.Bucket = `https://storage.googleapis.com/${bucketName}`;
   console.log(context);
   res.render("partials/animalsgrid", context);
 });
@@ -75,7 +77,7 @@ router.post("/", multer.single('file'), async (req, res, next) => {
     console.log(req.body);
     req.body.DateCreated = new Date(Date.now()).toISOString();
     req.body.Availability = availability.AVAILABLE;
-    req.body.Photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    req.body.Photo = `${blob.name}`;
     const newAnimal = new Animals(req.body);
     await newAnimal.save();
     res.status(204).end();
@@ -85,6 +87,8 @@ router.post("/", multer.single('file'), async (req, res, next) => {
 });
 
 router.delete("/:id", async (req, res) => {
+  console.log(req.query);
+  await storage.bucket(bucketName).file(req.query.photo).delete();
   await Animals.deleteAnimal(req.params.id);
   res.status(204).end();
 });

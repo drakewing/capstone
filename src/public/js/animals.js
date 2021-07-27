@@ -34,7 +34,6 @@ function buildQueryString() {
   const dispositionCriteria = [];
   for (let i = 0; i < dispositionCheckBoxes.length; i += 1) {
     if (dispositionCheckBoxes[i].checked === true) {
-      // TODO shouldn't this be value instead of name???
       dispositionCriteria.push(encodeURIComponent(dispositionCheckBoxes[i].name));
     }
   }
@@ -154,7 +153,6 @@ $(document).on('show.bs.modal', (event) => {
   const button = event.relatedTarget;
 
   // Extract info from data-* attributes
-  const photo = button.getAttribute('data-photo');
   const gender = button.getAttribute('data-gender');
   const breed = button.getAttribute('data-breed');
   const age = button.getAttribute('data-age');
@@ -164,6 +162,7 @@ $(document).on('show.bs.modal', (event) => {
   const dateCreated = button.getAttribute('data-dateCreated');
   const name = button.getAttribute('data-name');
   const id = button.getAttribute('data-id');
+  const photo = `${button.getAttribute('data-bucket')}/${button.getAttribute('data-photo')}`;
 
   // Update the modal's content
   $('.modal-title').text(name);
@@ -177,6 +176,7 @@ $(document).on('show.bs.modal', (event) => {
   modalBody.find('#availability').text(availability);
   modalBody.find('#dateCreated').text(dateCreated);
   modalFooter.find('#deleteAnimal').attr('data-id', id);
+  modalFooter.find('#deleteAnimal').attr('data-photo', photo);
 
   const dispositionArray = disposition.split(",");
   $("#disposition").text("");
@@ -210,14 +210,33 @@ function displayGrid() {
   });
 }
 
+// display alert message to confirm that user intends to delete animal
+$(document).on('click', '#deleteAnimal', () => {
+  const deleteAlert = document.getElementById('deleteAlert');
+  deleteAlert.style.display = 'block';
+  const modalButtons = document.getElementById('modalButtons');
+  modalButtons.style.display = 'none';
+});
+
+// if you cancel the delete, hide the alert message
+$(document).on('click', '#cancelDelete', () => {
+  const deleteAlert = document.getElementById('deleteAlert');
+
+  // todo CSS properties go in the html style attribute
+  deleteAlert.style.display = 'none';
+
+  const modalButtons = document.getElementById('modalButtons');
+  modalButtons.style.display = 'block';
+});
+
 // delete an animal (admin use only)
-$(document).on('click', '#deleteAnimal', (event) => {
-  // delete animal here
-  const button = event.target;
-  const id = button.getAttribute('data-id');
+$(document).on('click', '#confirmDelete', () => {
+  const photo = $("#deleteAnimal").attr('data-photo');
+  const id = $("#deleteAnimal").attr('data-id');
+
   $.ajax({
     type: "DELETE",
-    url: `/animals/${id}`,
+    url: `/animals/${id}?photo=${photo}}`,
     crossDomain: true,
     success: displayGrid,
     error: (xhr, ajaxOptions, thrownError) => {

@@ -10,8 +10,8 @@ const { User } = require("../src/models/user");
 const { secrets } = require("../src/secrets");
 
 // The ID of your GCS bucket
-const bucketName =
-  "https://storage.googleapis.com/capstone-project-318221.appspot.com/";
+const bucketName = "";//
+  //"https://storage.googleapis.com/capstone-project-318221.appspot.com/";
 
 const datastore = new Datastore();
 

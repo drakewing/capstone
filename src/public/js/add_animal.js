@@ -39,12 +39,15 @@ $('#addAnimal').submit((e) => {
     contentType: false,
     processData: false,
     data: formData,
-    success: (result) => { console.log(result); },
+    success: (result) => {
+      console.log(result);
+      $('#addAnimal')[0].reset();
+      $('#confirmModal').modal('toggle');
+    },
     error: (xhr) => { console.log(xhr.responseText); }
   });
+});
 
-  // reset the form (erase user data)
-  $('#addAnimal').each(() => {
-    e.target.reset();
-  });
+$('#doneAdding').click(() => {
+  window.location.href = '/animals';
 });

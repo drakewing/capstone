@@ -28,20 +28,20 @@ class Animals {
 
   static async getAnimals(cursor, searchCriteria) {
     let q = datastore.createQuery(kinds.ANIMALS).limit(PAGE_SIZE);
-    q.filter('Species', '=', searchCriteria.species);
+    q.filter("Species", "=", searchCriteria.species);
 
     if (searchCriteria.breed !== "All Breeds") {
-      q.filter('Breed', '=', searchCriteria.breed);
+      q.filter("Breed", "=", searchCriteria.breed);
     }
 
     // if multiple dispositions, query comes in as an array
-    if (typeof searchCriteria.disposition === 'object') {
+    if (typeof searchCriteria.disposition === "object") {
       searchCriteria.disposition.forEach((e) => {
-        q.filter('Disposition', '=', e);
+        q.filter("Disposition", "=", e);
       });
       // otherwise if only one disposition, it will be a string
     } else if (typeof searchCriteria.disposition === "string") {
-      q.filter('Disposition', '=', searchCriteria.disposition);
+      q.filter("Disposition", "=", searchCriteria.disposition);
     }
 
     // sort results in order of date posting was created
@@ -52,14 +52,14 @@ class Animals {
     }
 
     // if previous button clicked, reverse the order of the query
-    if (searchCriteria.direction === 'prev') {
+    if (searchCriteria.direction === "prev") {
       searchCriteria.descending = !searchCriteria.descending;
     }
 
-    q.order('DateCreated', { descending: searchCriteria.descending });
+    q.order("DateCreated", { descending: searchCriteria.descending });
 
     // if more results than the page limit, set the cursor to the first of the next page's results
-    if (cursor && cursor !== 'undefined') {
+    if (cursor && cursor !== "undefined") {
       q = q.start(cursor);
     }
 
@@ -68,7 +68,7 @@ class Animals {
     const info = results[1];
 
     // if previous button was clicked, reverse the entities
-    if (searchCriteria.direction === 'prev') {
+    if (searchCriteria.direction === "prev") {
       entities.reverse();
     }
 
@@ -77,20 +77,34 @@ class Animals {
 
     // set new previous and next button cursors depending on the direction
     if (info.moreResults !== Datastore.NO_MORE_RESULTS) {
-      if (searchCriteria.direction === 'prev') {
+      if (searchCriteria.direction === "prev") {
         returnValue.prev = info.endCursor;
         returnValue.next = cursor;
       } else {
         returnValue.prev = cursor;
         returnValue.next = info.endCursor;
       }
-    } else if (searchCriteria.direction === 'prev') {
+    } else if (searchCriteria.direction === "prev") {
       returnValue.next = cursor;
     } else {
       returnValue.prev = cursor;
     }
 
     return returnValue;
+  }
+
+  static async getAnimalById(id) {
+    const q = datastore
+      .createQuery(kinds.ANIMALS)
+      .limit(1)
+      .filter("__key__", datastore.key([kinds.ANIMALS, parseInt(id, 10)]));
+
+    let animal = (await datastore.runQuery(q))[0][0];
+    if (typeof animal === "undefined") {
+      return animal;
+    }
+
+    return new Animals(fromDatastore(animal));
   }
 }
 

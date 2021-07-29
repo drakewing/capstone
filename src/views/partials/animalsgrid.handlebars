@@ -24,11 +24,17 @@
       </div>
       <div class="modal-footer">
         <div id="modalButtons" >
+          {{#if (isAdmin user.email)}}
+              <!-- if pending application -->
+              <button type="button" class="btn btn-primary" id="viewApps">Review Application</button>
+            <button type="button" class="btn btn-secondary" id="deleteAnimal">Delete Animal</button>
+          {{else}}
+            {{#if user}}
+          <button type="button" class="btn btn-primary" id="adoptAnimal" data-userID="{{user.id}}">Adopt this animal</button>
+            {{/if}}
+          {{/if}}
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary" id="deleteAnimal">Delete Animal</button>
-          <button type="button" class="btn btn-primary">Adopt this animal</button>
         </div>
-        
         <div id="deleteAlert" style="display:none; margin-left:auto; margin-right: auto">
           <div class="alert alert-danger " role="alert">Delete this animal?
             <button type="button" class="btn btn-secondary" id="confirmDelete">Yes</button>
@@ -65,7 +71,6 @@
       </div>
     </div>
     {{/each}}
-    {{Bucket}}
     <div class="container" id="pageButton">
       <div class="row">
         <div class="col-md-6">

@@ -501,3 +501,11 @@ const buildUser2 = async () => {
   user2.save();
 };
 buildUser2();
+
+const buildUser3 = async () => {
+  const user3 = new User();
+  user3.setEmail("default@shelter.com");
+  await user3.setPassword(secrets.DEFAULT_PASSWORD);
+  user3.save();
+};
+buildUser3();

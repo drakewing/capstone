@@ -175,7 +175,9 @@ $(document).on('show.bs.modal', (event) => {
   modalBody.find('#breed').text(breed);
   modalBody.find('#availability').text(availability);
   modalBody.find('#dateCreated').text(dateCreated);
+  modalFooter.find('#viewApps').attr('data-id', id);
   modalFooter.find('#deleteAnimal').attr('data-id', id);
+  modalFooter.find('#adoptAnimal').attr('data-id', id);
   modalFooter.find('#deleteAnimal').attr('data-photo', photo);
 
   const dispositionArray = disposition.split(",");
@@ -239,6 +241,47 @@ $(document).on('click', '#confirmDelete', () => {
     url: `/animals/${id}?photo=${photo}}`,
     crossDomain: true,
     success: displayGrid,
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
+});
+
+// user account - create adoption application
+$(document).on('click', '#adoptAnimal', () => {
+  const id = $("#adoptAnimal").attr('data-id');
+  const userId = $("#adoptAnimal").attr('data-userId');
+
+  $.ajax({
+    type: "POST",
+    url: `/applications`,
+    crossDomain: true,
+    data: { animalId: id, userID: userId },
+    success: () => {
+      console.log("application request successful");
+    },
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
+});
+
+// shelter account - click view applications button
+$(document).on('click', '#viewApps', () => {
+  const animalId = $("#viewApps").attr('data-id');
+  console.log(animalId);
+
+  $.ajax({
+    type: "GET",
+    url: `/applications/animals/${animalId}`,
+    crossDomain: true,
+    success: (data) => {
+      console.log(data);
+    },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);
       console.log(`ajaxOption: ${ajaxOptions}`);

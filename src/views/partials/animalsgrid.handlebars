@@ -31,6 +31,8 @@
           {{else}}
             {{#if user}}
           <button type="button" class="btn btn-primary" id="adoptAnimal" data-userID="{{user.id}}">Adopt this animal</button>
+            {{else}}
+              <button type="button" class="btn btn-primary" id="login">Log in to adopt this animal</button>
             {{/if}}
           {{/if}}
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

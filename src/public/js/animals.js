@@ -289,3 +289,7 @@ $(document).on('click', '#viewApps', () => {
     },
   });
 });
+
+$(document).on('click', '#login', () => {
+  window.location.href = "http://localhost:8080/login";
+});

@@ -10,8 +10,8 @@ const { User } = require("../src/models/user");
 const { secrets } = require("../src/secrets");
 
 // The ID of your GCS bucket
-const bucketName = "";//
-  //"https://storage.googleapis.com/capstone-project-318221.appspot.com/";
+const bucketName = ""; //
+//"https://storage.googleapis.com/capstone-project-318221.appspot.com/";
 
 const datastore = new Datastore();
 
@@ -496,9 +496,11 @@ saveUser(user1);
 
 const buildUser = async (email, password) => {
   const user = new User();
-  user.setEmail("admin@shelter.com");
-  await user.setPassword(secrets.ADMIN_PASSWORD);
+  user.setEmail(email);
+  await user.setPassword(password);
   user.save();
 };
+
 buildUser("admin@shelter.com", secrets.ADMIN_PASSWORD);
 buildUser("johndoe@gmail.com", secrets.ADMIN_PASSWORD);
+buildUser("default@shelter.com", secrets.DEFAULT_PASSWORD);

@@ -1,6 +1,7 @@
 // Dependencies
 const { Datastore } = require("@google-cloud/datastore");
 const { fromDatastore } = require("../utils/db_helpers");
+const { availability } = require("../utils/availability");
 const kinds = require("../utils/kinds");
 
 const datastore = new Datastore();
@@ -10,6 +11,10 @@ const PAGE_SIZE = 6;
 class Animals {
   constructor(obj) {
     Object.assign(this, obj);
+  }
+
+  isAvailable() {
+    return this.Availability === availability.AVAILABLE;
   }
 
   async save() {

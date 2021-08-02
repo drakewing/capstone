@@ -30,7 +30,7 @@ class Application {
       .limit(1)
       .filter("__key__", datastore.key([kinds.APPLICATIONS, parseInt(id, 10)]));
 
-    let application = (await datastore.runQuery(q))[0][0];
+    const application = (await datastore.runQuery(q))[0][0];
     if (typeof application === "undefined") {
       return application;
     }
@@ -44,7 +44,7 @@ class Application {
       .filter("animalID", "=", animalID)
       .limit(1);
 
-    let application = (await datastore.runQuery(q))[0][0];
+    const application = (await datastore.runQuery(q))[0][0];
     if (typeof application === "undefined") {
       return application;
     }

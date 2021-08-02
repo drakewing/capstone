@@ -104,7 +104,7 @@ class Animals {
       .limit(1)
       .filter("__key__", datastore.key([kinds.ANIMALS, parseInt(id, 10)]));
 
-    let animal = (await datastore.runQuery(q))[0][0];
+    const animal = (await datastore.runQuery(q))[0][0];
     if (typeof animal === "undefined") {
       return animal;
     }

@@ -1,5 +1,4 @@
 const express = require("express");
-const { Datastore } = require("@google-cloud/datastore");
 const { Animals } = require("../models/animals");
 const { Application } = require("../models/application");
 const { User } = require("../models/user");
@@ -7,7 +6,6 @@ const { availability } = require("../utils/availability");
 
 // App data
 const router = express.Router();
-const datastore = new Datastore();
 
 // "Application" specific routes
 router.post("/", async (req, res) => {

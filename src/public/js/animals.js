@@ -30,8 +30,7 @@ function buildQueryString() {
 
   queryString += breedCriteria.join("&breed=");
 
-  const dispositionCheckBoxes =
-    document.getElementsByClassName("dispositionCheck");
+  const dispositionCheckBoxes = document.getElementsByClassName("dispositionCheck");
   const dispositionCriteria = [];
   for (let i = 0; i < dispositionCheckBoxes.length; i += 1) {
     if (dispositionCheckBoxes[i].checked === true) {

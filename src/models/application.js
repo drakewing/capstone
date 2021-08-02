@@ -37,6 +37,20 @@ class Application {
 
     return new Application(fromDatastore(application));
   }
+
+  static async getApplicationByAnimalID(animalID) {
+    const q = datastore
+      .createQuery(kinds.APPLICATIONS)
+      .filter("animalID", "=", animalID)
+      .limit(1);
+
+    let application = (await datastore.runQuery(q))[0][0];
+    if (typeof application === "undefined") {
+      return application;
+    }
+
+    return new Application(fromDatastore(application));
+  }
 }
 
 module.exports.Application = Application;

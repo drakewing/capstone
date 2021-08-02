@@ -1,97 +1,102 @@
 .search {
-    border-top: ridge;
-    height:200px; 
-    overflow:hidden; 
-    overflow-y:scroll;
+  border-top: ridge;
+  height: 200px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .searchSpecies {
-    border-top: ridge;
-    height:80px;
-    overflow:hidden;
-    overflow-y:scroll;
+  border-top: ridge;
+  height: 80px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .searchDateCreated {
-    border-top: ridge;
-    height:60px;
-    overflow:hidden;
-    overflow-y:scroll;
+  border-top: ridge;
+  height: 60px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .searchButton {
-    border-top: ridge;
+  border-top: ridge;
 }
 
 .disposition {
-    border-top: ridge;
-    height:100px;
-    overflow:hidden;
-    overflow-y:scroll;
+  border-top: ridge;
+  height: 100px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #noAnimals {
-    padding-top: 100px;
+  padding-top: 100px;
 }
 
 .card-title {
-    border-bottom: ridge;
+  border-bottom: ridge;
 }
 
 .category {
-    height: 20px;
+  height: 20px;
 }
 
-.modal-body{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
+.modal-body {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
 }
 
 .animalModalPhoto {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+#appLink {
+  color: inherit;
+  text-decoration: none;
 }
 
 #pagination {
-    text-align: center;
+  text-align: center;
 }
 
 #prevButton {
-    text-align: right;
+  text-align: right;
 }
 
 #prev {
-    width: 100px;
+  width: 100px;
 }
 
 #next {
-    width: 100px;
+  width: 100px;
 }
 
 .animalCriteria {
-    height:110px;
-    overflow:hidden;
-    overflow-y:scroll;
+  height: 110px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #pageButton {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .cardOutline {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 /* only scale-down thumbnials when window is smaller 
    than medium breakpoint */
 @media (min-width: 768px) {
-    .thumbnail {
-        width: 100%;
-        height: 13vw;
-        object-fit: scale-down;
-    }
+  .thumbnail {
+    width: 100%;
+    height: 13vw;
+    object-fit: scale-down;
+  }
 }

@@ -30,11 +30,14 @@ function buildQueryString() {
 
   queryString += breedCriteria.join("&breed=");
 
-  const dispositionCheckBoxes = document.getElementsByClassName("dispositionCheck");
+  const dispositionCheckBoxes =
+    document.getElementsByClassName("dispositionCheck");
   const dispositionCriteria = [];
   for (let i = 0; i < dispositionCheckBoxes.length; i += 1) {
     if (dispositionCheckBoxes[i].checked === true) {
-      dispositionCriteria.push(encodeURIComponent(dispositionCheckBoxes[i].name));
+      dispositionCriteria.push(
+        encodeURIComponent(dispositionCheckBoxes[i].name)
+      );
     }
   }
 
@@ -64,7 +67,9 @@ $(document).ready(() => {
   document.getElementsByClassName("form-check-input breed")[0].checked = true;
 
   // hide breed checkboxes for all unchecked species radio buttons
-  const radioButtons = document.getElementsByClassName("form-check-input species");
+  const radioButtons = document.getElementsByClassName(
+    "form-check-input species"
+  );
   let species;
   for (let i = 0; i < radioButtons.length; i += 1) {
     species = radioButtons[i].value;
@@ -79,7 +84,7 @@ $(document).ready(() => {
 });
 
 // filter search results buttons
-$(document).on('click', '#filter', () => {
+$(document).on("click", "#filter", () => {
   const searchCriteria = buildQueryString();
   console.log(searchCriteria);
 
@@ -88,7 +93,7 @@ $(document).on('click', '#filter', () => {
     url: `/animals/partial?${searchCriteria}`,
     crossDomain: true,
     success: (data) => {
-      $('#searchgrid').html(data);
+      $("#searchgrid").html(data);
     },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);
@@ -99,8 +104,10 @@ $(document).on('click', '#filter', () => {
 });
 
 // event listener to change breed checkboxes upon radio button click
-$(document).on('click', '.form-check-input.species', () => {
-  const radioButtons = document.getElementsByClassName("form-check-input species");
+$(document).on("click", ".form-check-input.species", () => {
+  const radioButtons = document.getElementsByClassName(
+    "form-check-input species"
+  );
   let species;
 
   for (let i = 0; i < radioButtons.length; i += 1) {
@@ -108,7 +115,9 @@ $(document).on('click', '.form-check-input.species', () => {
     if (radioButtons[i].checked === true) {
       const speciesSpan = document.getElementById(`${species}radioSpan`);
       speciesSpan.hidden = false;
-      speciesSpan.getElementsByClassName("form-check-input breed")[0].checked = true;
+      speciesSpan.getElementsByClassName(
+        "form-check-input breed"
+      )[0].checked = true;
     } else {
       const breedRadio = document.getElementsByClassName(`${species}Radio`);
       for (let j = 0; j < breedRadio.length; j += 1) {
@@ -122,7 +131,7 @@ $(document).on('click', '.form-check-input.species', () => {
 
 // continuously watches the css selectors for the click event
 // $( this ) will refer to the entire document not the button
-$(document).on('click', '#prev,#next', (event) => {
+$(document).on("click", "#prev,#next", (event) => {
   console.log(event.target.id);
   const direction = event.target.id;
 
@@ -137,7 +146,7 @@ $(document).on('click', '#prev,#next', (event) => {
     url: `/animals/partial?cursor=${cursor}&direction=${direction}&${searchCriteria}`,
     crossDomain: true,
     success: (data) => {
-      $('#searchgrid').html(data);
+      $("#searchgrid").html(data);
     },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);
@@ -148,50 +157,72 @@ $(document).on('click', '#prev,#next', (event) => {
 });
 
 // generate modal content when user clicks on see details
-$(document).on('show.bs.modal', (event) => {
+$(document).on("show.bs.modal", (event) => {
   // Button that triggered the modal
   const button = event.relatedTarget;
 
   // Extract info from data-* attributes
-  const gender = button.getAttribute('data-gender');
-  const breed = button.getAttribute('data-breed');
-  const age = button.getAttribute('data-age');
-  const species = button.getAttribute('data-species');
-  const availability = button.getAttribute('data-availability');
-  const disposition = button.getAttribute('data-disposition');
-  const dateCreated = button.getAttribute('data-dateCreated');
-  const name = button.getAttribute('data-name');
-  const id = button.getAttribute('data-id');
-  const photo = `${button.getAttribute('data-bucket')}/${button.getAttribute('data-photo')}`;
+  const gender = button.getAttribute("data-gender");
+  const breed = button.getAttribute("data-breed");
+  const age = button.getAttribute("data-age");
+  const species = button.getAttribute("data-species");
+  const availability = button.getAttribute("data-availability");
+  const disposition = button.getAttribute("data-disposition");
+  const dateCreated = button.getAttribute("data-dateCreated");
+  const name = button.getAttribute("data-name");
+  const id = button.getAttribute("data-id");
+  const photo = `${button.getAttribute("data-bucket")}/${button.getAttribute(
+    "data-photo"
+  )}`;
 
   // Update the modal's content
-  $('.modal-title').text(name);
-  const modalBody = $('.modal-body');
-  const modalFooter = $('.modal-footer');
-  modalBody.find('#photo').attr('src', photo);
-  modalBody.find('#gender').text(gender);
-  modalBody.find('#age').text(age);
-  modalBody.find('#species').text(species);
-  modalBody.find('#breed').text(breed);
-  modalBody.find('#availability').text(availability);
-  modalBody.find('#dateCreated').text(dateCreated);
-  modalFooter.find('#viewApps').attr('data-id', id);
-  modalFooter.find('#deleteAnimal').attr('data-id', id);
-  modalFooter.find('#adoptAnimal').attr('data-id', id);
-  modalFooter.find('#deleteAnimal').attr('data-photo', photo);
+  $(".modal-title").text(name);
+  const modalBody = $(".modal-body");
+  const modalFooter = $(".modal-footer");
+  modalBody.find("#photo").attr("src", photo);
+  modalBody.find("#gender").text(gender);
+  modalBody.find("#age").text(age);
+  modalBody.find("#species").text(species);
+  modalBody.find("#breed").text(breed);
+  modalBody.find("#availability").text(availability);
+  modalBody.find("#dateCreated").text(dateCreated);
+  modalFooter.find("#viewApps").attr("data-id", id);
+  modalFooter.find("#deleteAnimal").attr("data-id", id);
+  modalFooter.find("#adoptAnimal").attr("data-id", id);
+  modalFooter.find("#deleteAnimal").attr("data-photo", photo);
 
   const dispositionArray = disposition.split(",");
   $("#disposition").text("");
   for (let i = 0; i < dispositionArray.length; i += 1) {
     $("#disposition").append($("<li>").text(dispositionArray[i]));
   }
+
+  // Change adoption button if necessary
+  if (availability !== "Available") {
+    modalFooter.find("#adoptAnimal").html("Adoption Pending");
+    modalFooter.find("#adoptAnimal").prop("disabled", true);
+  } else {
+    modalFooter.find("#adoptAnimal").html("Adopt this animal");
+    modalFooter.find("#adoptAnimal").prop("disabled", false);
+  }
+
+  // Toggle review app button as necessary
+  const viewApps = modalFooter.find("#viewApps");
+  const animalId = $("#viewApps").attr("data-id");
+
+  if (availability === "Pending") {
+    viewApps.toggle(true);
+    viewApps.attr("formaction", `/applications/animals/${animalId}`);
+  } else {
+    viewApps.toggle(false);
+  }
 });
 
 function displayGrid() {
-  $('#animalModal').modal('toggle');
+  $("#animalModal").modal("toggle");
   // use the previous cursor but set direction to "next"
-  const direction = 'next';
-  const cursor = encodeURIComponent($('#prev').attr('data-cursor'));
+  const direction = "next";
+  const cursor = encodeURIComponent($("#prev").attr("data-cursor"));
   console.log(cursor);
 
   const searchCriteria = buildQueryString();
@@ -202,7 +233,7 @@ function displayGrid() {
     url: `/animals/partial?cursor=${cursor}&direction=${direction}&${searchCriteria}`,
     crossDomain: true,
     success: (data) => {
-      $('#searchgrid').html(data);
+      $("#searchgrid").html(data);
     },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);
@@ -213,28 +244,28 @@ function displayGrid() {
 }
 
 // display alert message to confirm that user intends to delete animal
-$(document).on('click', '#deleteAnimal', () => {
-  const deleteAlert = document.getElementById('deleteAlert');
-  deleteAlert.style.display = 'block';
-  const modalButtons = document.getElementById('modalButtons');
-  modalButtons.style.display = 'none';
+$(document).on("click", "#deleteAnimal", () => {
+  const deleteAlert = document.getElementById("deleteAlert");
+  deleteAlert.style.display = "block";
+  const modalButtons = document.getElementById("modalButtons");
+  modalButtons.style.display = "none";
 });
 
 // if you cancel the delete, hide the alert message
-$(document).on('click', '#cancelDelete', () => {
-  const deleteAlert = document.getElementById('deleteAlert');
+$(document).on("click", "#cancelDelete", () => {
+  const deleteAlert = document.getElementById("deleteAlert");
 
   // todo CSS properties go in the html style attribute
-  deleteAlert.style.display = 'none';
+  deleteAlert.style.display = "none";
 
-  const modalButtons = document.getElementById('modalButtons');
-  modalButtons.style.display = 'block';
+  const modalButtons = document.getElementById("modalButtons");
+  modalButtons.style.display = "block";
 });
 
 // delete an animal (admin use only)
-$(document).on('click', '#confirmDelete', () => {
-  const photo = $("#deleteAnimal").attr('data-photo');
-  const id = $("#deleteAnimal").attr('data-id');
+$(document).on("click", "#confirmDelete", () => {
+  const photo = $("#deleteAnimal").attr("data-photo");
+  const id = $("#deleteAnimal").attr("data-id");
 
   $.ajax({
     type: "DELETE",
@@ -250,9 +281,9 @@ $(document).on('click', '#confirmDelete', () => {
 });
 
 // user account - create adoption application
-$(document).on('click', '#adoptAnimal', () => {
-  const id = $("#adoptAnimal").attr('data-id');
-  const userId = $("#adoptAnimal").attr('data-userId');
+$(document).on("click", "#adoptAnimal", () => {
+  const id = $("#adoptAnimal").attr("data-id");
+  const userId = $("#adoptAnimal").attr("data-userId");
 
   $.ajax({
     type: "POST",
@@ -261,8 +292,15 @@ $(document).on('click', '#adoptAnimal', () => {
     data: { animalId: id, userID: userId },
     success: () => {
       console.log("application request successful");
+      const modalFooter = $(".modal-footer");
+      modalFooter.find("#adoptAnimal").html("Adoption Pending");
+      modalFooter.find("#adoptAnimal").prop("disabled", true);
     },
     error: (xhr, ajaxOptions, thrownError) => {
+      const modalFooter = $(".modal-footer");
+      modalFooter.find("#adoptAnimal").html("Error processing application");
+      modalFooter.find("#adoptAnimal").prop("disabled", true);
+
       console.log(`xHR: ${xhr}`);
       console.log(`ajaxOption: ${ajaxOptions}`);
       console.log(`thrownError: ${thrownError}`);
@@ -270,26 +308,6 @@ $(document).on('click', '#adoptAnimal', () => {
   });
 });
 
-// shelter account - click view applications button
-$(document).on('click', '#viewApps', () => {
-  const animalId = $("#viewApps").attr('data-id');
-  console.log(animalId);
-
-  $.ajax({
-    type: "GET",
-    url: `/applications/animals/${animalId}`,
-    crossDomain: true,
-    success: (data) => {
-      console.log(data);
-    },
-    error: (xhr, ajaxOptions, thrownError) => {
-      console.log(`xHR: ${xhr}`);
-      console.log(`ajaxOption: ${ajaxOptions}`);
-      console.log(`thrownError: ${thrownError}`);
-    },
-  });
-});
-
-$(document).on('click', '#login', () => {
+$(document).on("click", "#login", () => {
   window.location.href = "/login";
 });

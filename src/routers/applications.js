@@ -10,10 +10,6 @@ const router = express.Router();
 const datastore = new Datastore();
 
 // "Application" specific routes
-router.get("/animals/:id", (req, res) => {
-  res.sendStatus(200);
-});
-
 router.post("/", async (req, res) => {
   const animal = await Animals.getAnimalById(req.body.animalId);
 
@@ -55,23 +51,114 @@ router.post("/", async (req, res) => {
   res.sendStatus(200);
 });
 
-router.get("/animals/:animalId", async (req, res) => {
+router.get("/animals/:animalID", async (req, res) => {
   // Check for valid animal ID
-  if (!req.params.animalId) {
+  if (!req.params.animalID) {
     res.status(404).render("404");
     return;
   }
 
-  animalId = parseInt(req.params.animalId, 10);
-
-  const animal = await Animals.getAnimalById(req.params.animalId);
-  if (typeof animal === "undefined") {
+  const animal = await Animals.getAnimalById(req.params.animalID);
+  if (
+    typeof animal === "undefined" ||
+    animal.Availability !== availability.PENDING
+  ) {
+    console.log(animal);
     res.status(404).render("404");
     return;
   }
+
+  // Confirm application exists
+  const application = await Application.getApplicationByAnimalID(
+    req.params.animalID
+  );
+  if (typeof application === "undefined") {
+    res.status(404).render("404");
+    return;
+  }
+
+  // Get user
+  const user = await User.findById(application.userID, () => {});
 
   console.log(animal);
-  res.send("you got here");
+  console.log(user);
+
+  const context = {
+    animalName: animal.Name,
+    animalID: animal.id,
+    applicationID: application.id,
+    userID: user.id,
+    userName: user.Name,
+    userEmail: user.email,
+  };
+
+  res.status(200).render("application", context);
+});
+
+router.post("/animals/:animalID/approve", async (req, res) => {
+  // Check for valid animal ID
+  if (!req.params.animalID) {
+    res.status(404).render("404");
+    return;
+  }
+
+  const animal = await Animals.getAnimalById(req.params.animalID);
+  if (
+    typeof animal === "undefined" ||
+    animal.Availability !== availability.PENDING
+  ) {
+    console.log(animal);
+    res.status(404).render("404");
+    return;
+  }
+
+  // Confirm application exists
+  const application = await Application.getApplicationByAnimalID(
+    req.params.animalID
+  );
+  if (typeof application === "undefined") {
+    res.status(404).render("404");
+    return;
+  }
+
+  animal.Availability = availability.ADOPTED;
+  animal.save();
+
+  Application.deleteApplication(application.id);
+  res.redirect("/animals");
+});
+
+router.post("/animals/:animalID/reject", async (req, res) => {
+  // Check for valid animal ID
+  if (!req.params.animalID) {
+    res.status(404).render("404");
+    return;
+  }
+
+  const animal = await Animals.getAnimalById(req.params.animalID);
+  if (
+    typeof animal === "undefined" ||
+    animal.Availability !== availability.PENDING
+  ) {
+    console.log(animal);
+    res.status(404).render("404");
+    return;
+  }
+
+  // Confirm application exists
+  const application = await Application.getApplicationByAnimalID(
+    req.params.animalID
+  );
+  if (typeof application === "undefined") {
+    res.status(404).render("404");
+    return;
+  }
+
+  animal.Availability = availability.AVAILABLE;
+  animal.save();
+
+  Application.deleteApplication(application.id);
+  res.redirect("/animals");
 });
 
 module.exports = router;

@@ -1,0 +1,27 @@
+<style>
+#approveForm {
+    margin: 10px;
+}
+</style>
+
+<div class="container" id="heading">
+  <h1>Pending Application</h1>
+  <h2>Animal Info</h2>
+  <p>Name: {{animalName}}</p>
+  <p>ID: {{animalID}}</p>
+
+  <h2>User Info</h2>
+  <p>ID: {{userID}}</p>
+  <p>Name: {{userName}}</p>
+  <p>Email: {{userEmail}}</p>
+
+<form id="approveForm" method="POST" action="/applications/animals/{{animalID}}/approve">
+    <input type="submit" value="Approve">
+</form>
+
+<form id="rejectForm" method="POST" action="/applications/animals/{{animalID}}/reject">
+    <input type="submit" value="Reject">
+</form>
+
+</div>
+

@@ -50,7 +50,7 @@
   </div>
 </div>
 
-{{#if animals}}
+{{#if animals.length}}
     {{#each animals}}
     <!--Table nested in the right 9/12 of the page. Each animal card is 4/12 columns of this nested section-->
     <div class="col-md-4">
@@ -95,7 +95,7 @@
     </div>
 {{else}}
     <div id="noAnimals">
-        <h3>There are no animals currently available for adoption</h3>
+        <h3>There are no animals</h3>
     </div>
 {{/if}}
             

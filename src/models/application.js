@@ -64,12 +64,10 @@ class Application {
 
     // get animal information associated with each application
     const keys = results.map((e) => datastore.key([kinds.ANIMALS, parseInt(e.animalID, 10)]));
-    /* console.log("keys:");
-    console.log(keys); */
-    const animals = (await datastore.get(keys))[0];
-    console.log("animals:");
-    console.log(animals);
-
+    let animals = [];
+    if (keys.length !== 0) {
+      [animals] = (await datastore.get(keys));
+    }
     return { animals: animals.map(fromDatastore) };
   }
 }

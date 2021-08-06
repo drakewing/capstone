@@ -11,3 +11,8 @@ datastore.runQuery(q).then((results) => {
   const entities = results[0];
   console.log(entities);
 });
+
+datastore.runQuery(q).then((results) => {
+  const entities = results[0];
+  console.log(entities);
+});

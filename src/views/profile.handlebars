@@ -34,7 +34,7 @@
                       <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {email place holder}
+                      {{user.email}}
                     </div>
                   </div>
                   <hr>
@@ -57,17 +57,19 @@
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Adopted Animals</h6>
+                    <div class="col-sm-12">
+                      <h6 class="mb-0">Pending Adoption Applications</h6>
                     </div>
-                    <div class="col-sm-3 text-secondary">
-                      {list of animals}
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 text-secondary">
+                      <div class="row" id="userApps"></div>
                     </div>
                   </div>
                   <hr>
                   <div class="row">
                       <div class="d-flex flex-row-reverse">
-                          <button type="button" class="btn btn-primary">Edit Profile</button>
+                          <button type="button" class="btn btn-primary" id="editProfile" data-id="{{user.id}}">Edit Profile</button>
                       </div>
                   </div>
 </div> 

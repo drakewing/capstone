@@ -48,7 +48,7 @@ router.get("/partial", async (req, res) => {
     cursor = req.query.cursor;
   }
   const context = await Animals.getAnimals(cursor, req.query);
-  context.layout = false;
+  context.layout = false; // avoid navbar in partial handlebars
   context.Bucket = `https://storage.googleapis.com/${bucketName}`;
   console.log(context);
   res.render("partials/animalsgrid", context);

@@ -51,6 +51,27 @@ class Application {
 
     return new Application(fromDatastore(application));
   }
+
+  // get all pending applications associated with user
+  static async getApplicationsByUserId(userID) {
+    const q = datastore
+      .createQuery(kinds.APPLICATIONS)
+      .filter("userID", "=", userID);
+    const results = (await datastore.runQuery(q))[0];
+    if (typeof results === "undefined") {
+      return results;
+    }
+
+    // get animal information associated with each application
+    const keys = results.map((e) => datastore.key([kinds.ANIMALS, parseInt(e.animalID, 10)]));
+    /* console.log("keys:");
+    console.log(keys); */
+    const animals = (await datastore.get(keys))[0];
+    console.log("animals:");
+    console.log(animals);
+
+    return { animals: animals.map(fromDatastore) };
+  }
 }
 
 module.exports.Application = Application;

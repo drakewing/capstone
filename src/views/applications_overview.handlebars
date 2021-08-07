@@ -3,19 +3,19 @@
     margin: 10px;
 }
 
-ul {
-    list-style-type: none;
+.list-group {
+    display: inline-block;
 }
 </style>
 
 <div class="container" id="heading">
   <h1>Pending Applications</h1>
 
-  <ul>
+  <div class="list-group list-group-flush">
     {{#each apps}}
-        <li><a href="/applications/animals/{{this.animalID}}">User: {{this.userID}} - Animal: {{this.animalID}}</a></li>
+        <div class="list-group-item"><a href="/applications/animals/{{this.animalID}}" class="btn btn-primary">User ID #{{this.userID}} applied for animal ID #{{this.animalID}}</a></div>
     {{/each}}
-  </ul>
+  </div>
 
 </div>
 

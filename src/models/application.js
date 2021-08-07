@@ -40,19 +40,19 @@ class Application {
 
   static async getApplications() {
     const q = datastore.createQuery(kinds.APPLICATIONS);
-    const applications_raw = (await datastore.runQuery(q))[0];
-    let applications = [];
+    const applicationsRaw = (await datastore.runQuery(q))[0];
+    const applications = [];
 
-    if (typeof applications_raw === "undefined") {
+    if (typeof applicationsRaw === "undefined") {
       return applications;
     }
 
-    if (!Array.isArray(applications_raw)) {
-      applications.push(applications_raw);
+    if (!Array.isArray(applicationsRaw)) {
+      applications.push(applicationsRaw);
       return applications;
     }
 
-    return applications_raw.map((app) => new Application(fromDatastore(app)));
+    return applicationsRaw.map((app) => new Application(fromDatastore(app)));
   }
 
   static async getApplicationByAnimalID(animalID) {
@@ -80,9 +80,7 @@ class Application {
     }
 
     // get animal information associated with each application
-    const keys = results.map((e) =>
-      datastore.key([kinds.ANIMALS, parseInt(e.animalID, 10)])
-    );
+    const keys = results.map((e) => datastore.key([kinds.ANIMALS, parseInt(e.animalID, 10)]));
     let animals = [];
     if (keys.length !== 0) {
       [animals] = await datastore.get(keys);

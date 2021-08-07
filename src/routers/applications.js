@@ -175,14 +175,12 @@ router.get("/overview", async (req, res) => {
   }
 
   const apps = await Application.getApplications();
-  let context = {};
-  context.apps = apps.map((app) => {
-    return {
-      userID: app.userID,
-      animalID: app.animalID,
-      appID: app.id,
-    };
-  });
+  const context = {};
+  context.apps = apps.map((app) => ({
+    userID: app.userID,
+    animalID: app.animalID,
+    appID: app.id,
+  }));
 
   console.log(context);
 

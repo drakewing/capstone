@@ -38,6 +38,23 @@ class Application {
     return new Application(fromDatastore(application));
   }
 
+  static async getApplications() {
+    const q = datastore.createQuery(kinds.APPLICATIONS);
+    const applicationsRaw = (await datastore.runQuery(q))[0];
+    const applications = [];
+
+    if (typeof applicationsRaw === "undefined") {
+      return applications;
+    }
+
+    if (!Array.isArray(applicationsRaw)) {
+      applications.push(applicationsRaw);
+      return applications;
+    }
+
+    return applicationsRaw.map((app) => new Application(fromDatastore(app)));
+  }
+
   static async getApplicationByAnimalID(animalID) {
     const q = datastore
       .createQuery(kinds.APPLICATIONS)
@@ -66,7 +83,7 @@ class Application {
     const keys = results.map((e) => datastore.key([kinds.ANIMALS, parseInt(e.animalID, 10)]));
     let animals = [];
     if (keys.length !== 0) {
-      [animals] = (await datastore.get(keys));
+      [animals] = await datastore.get(keys);
     }
     return { animals: animals.map(fromDatastore) };
   }

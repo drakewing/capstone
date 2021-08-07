@@ -50,6 +50,11 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/animals/:animalID", async (req, res) => {
+  if (!req.user || req.user.email !== "admin@shelter.com") {
+    res.status(401).render("401");
+    return;
+  }
+
   // Check for valid animal ID
   if (!req.params.animalID) {
     res.status(404).render("404");
@@ -94,9 +99,8 @@ router.get("/animals/:animalID", async (req, res) => {
 });
 
 router.post("/animals/:animalID/approve", async (req, res) => {
-  // Check for valid animal ID
-  if (!req.params.animalID) {
-    res.status(404).render("404");
+  if (!req.user || req.user.email !== "admin@shelter.com") {
+    res.status(401).render("401");
     return;
   }
 
@@ -127,6 +131,11 @@ router.post("/animals/:animalID/approve", async (req, res) => {
 });
 
 router.post("/animals/:animalID/reject", async (req, res) => {
+  if (!req.user || req.user.email !== "admin@shelter.com") {
+    res.status(401).render("401");
+    return;
+  }
+
   // Check for valid animal ID
   if (!req.params.animalID) {
     res.status(404).render("404");
@@ -157,6 +166,27 @@ router.post("/animals/:animalID/reject", async (req, res) => {
 
   Application.deleteApplication(application.id);
   res.redirect("/animals");
+});
+
+router.get("/overview", async (req, res) => {
+  if (!req.user || req.user.email !== "admin@shelter.com") {
+    res.status(401).render("401");
+    return;
+  }
+
+  const apps = await Application.getApplications();
+  let context = {};
+  context.apps = apps.map((app) => {
+    return {
+      userID: app.userID,
+      animalID: app.animalID,
+      appID: app.id,
+    };
+  });
+
+  console.log(context);
+
+  res.status(200).render("applications_overview", context);
 });
 
 module.exports = router;

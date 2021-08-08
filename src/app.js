@@ -20,6 +20,7 @@ const { breeds } = require("./utils/breeds");
 const { dispositions } = require("./utils/dispositions");
 const { gender } = require("./utils/gender");
 const { availability } = require("./utils/availability");
+const storageBucket = require("./utils/storageBucket");
 
 // App data
 const PORT = process.env.PORT || 8080;
@@ -67,6 +68,7 @@ app.use(passport.session());
 // Auth middleware
 app.use((req, res, next) => {
   res.locals.user = req.user;
+  res.locals.bucketName = storageBucket.URL;
   next();
 });
 

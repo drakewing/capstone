@@ -503,4 +503,3 @@ const buildUser = async (email, password) => {
 
 buildUser("admin@shelter.com", secrets.ADMIN_PASSWORD);
 buildUser("johndoe@gmail.com", secrets.ADMIN_PASSWORD);
-buildUser("default@shelter.com", secrets.DEFAULT_PASSWORD);

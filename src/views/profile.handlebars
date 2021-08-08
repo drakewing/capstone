@@ -6,14 +6,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 col-sm-12 float-md-none">
-      <div class="row">
-        <div class="card" style="width: 18rem;">
-          <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" class="card-img-top" alt="">
+      <form id="photoForm">
+        <div class="card">
+          {{#if user.photo}}
+            <img src="{{bucketName}}/{{user.photo}}" id="userPhoto" class="card-img-top" alt="user photo">
+          {{else}}
+            <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" id="stockPhoto" class="card-img-top" alt="user photo">
+          {{/if}}
           <div class="card-body">
-            <a href="#" class="btn btn-primary">Change Picture</a>
+            <input type="file" class="form-control" name='file' id="photoUpload" name="photo">
+            <button type="submit" class="btn btn-primary submitPatch" id="submitPhoto" data-id="{{user.id}}">Submit Photo</button>
+            <a href="#" class="btn btn-primary" id="changePicButton">Change Picture</a>
           </div>
         </div>
-      </div>
+      </form>
     </div>
     <div class="col-md-8">
       <div class="card mb-3">
@@ -70,7 +76,7 @@
             <hr>
             <div class="row">
               <div class="d-flex flex-row-reverse">
-                <button type="submit" class="btn btn-primary" id="submitPatch" data-id="{{user.id}}"> Submit Changes</button>
+                <button type="submit" class="btn btn-primary submitPatch" id="submitPatch" data-id="{{user.id}}"> Submit Changes</button>
               </div>
             </div>
           </div>

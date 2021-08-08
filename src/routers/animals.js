@@ -7,6 +7,7 @@ const { breeds } = require("../utils/breeds");
 const { dispositions } = require("../utils/dispositions");
 const { availability } = require("../utils/availability");
 const { Animals } = require("../models/animals");
+const storageBucket = require("../utils/storageBucket");
 
 const router = express.Router();
 
@@ -21,10 +22,8 @@ const multer = Multer({
 
 const storage = new Storage();
 
-const bucketName = 'capstone-project-318221.appspot.com';
-
 // A bucket is a container for objects (files).
-const bucket = storage.bucket(bucketName);
+const bucket = storage.bucket(storageBucket.NAME);
 
 router.get("/", async (req, res) => {
   // loads full animals page
@@ -36,7 +35,7 @@ router.get("/", async (req, res) => {
   context.species = species;
   context.breeds = breeds;
   context.dispositions = dispositions;
-  context.Bucket = `https://storage.googleapis.com/${bucketName}`;
+  context.Bucket = storageBucket.URL;
   res.render("animals", context);
 });
 
@@ -49,7 +48,7 @@ router.get("/partial", async (req, res) => {
   }
   const context = await Animals.getAnimals(cursor, req.query);
   context.layout = false; // avoid navbar in partial handlebars
-  context.Bucket = `https://storage.googleapis.com/${bucketName}`;
+  context.Bucket = storageBucket.URL;
   console.log(context);
   res.render("partials/animalsgrid", context);
 });
@@ -88,7 +87,7 @@ router.post("/", multer.single('file'), async (req, res, next) => {
 
 router.delete("/:id", async (req, res) => {
   console.log(req.query);
-  await storage.bucket(bucketName).file(req.query.photo).delete();
+  await storage.bucket(storageBucket.NAME).file(req.query.photo).delete();
   await Animals.deleteAnimal(req.params.id);
   res.status(204).end();
 });

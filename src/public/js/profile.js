@@ -5,6 +5,12 @@ $(document).ready(() => {
   const id = button.getAttribute("data-id");
   button.style.display = "none";
 
+  const photoUpload = document.getElementById('photoUpload');
+  photoUpload.style.display = "none";
+
+  const submitPhoto = document.getElementById('submitPhoto');
+  submitPhoto.style.display = "none";
+
   $.ajax({
     type: "GET",
     url: `/users/${id}/applications`,
@@ -67,7 +73,6 @@ $(document).on("show.bs.modal", (event) => {
 
 // display text fields
 $(document).on("click", "#editProfile", () => {
-  console.log("edit button clicked");
   const pencilButton = document.getElementById('editProfile');
   pencilButton.style.display = "none";
 
@@ -102,6 +107,11 @@ $(document).on("submit", "#editProfileForm", (e) => {
   // Extract info from data-* attributes
   const id = button.getAttribute("data-id");
   const formData = new FormData(e.target);
+  const userPhoto = document.getElementById("userPhoto");
+  if (userPhoto) {
+    formData.file = userPhoto.value;
+  }
+
   console.log(formData);
 
   $.ajax({
@@ -135,6 +145,72 @@ $(document).on("submit", "#editProfileForm", (e) => {
       const addressInput = document.getElementById("userAddressInput");
       addressInput.readOnly = true;
       addressInput.className = "form-control-plaintext";
+    },
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
+});
+
+// display photo upload
+$(document).on("click", "#changePicButton", () => {
+  const changePicButton = document.getElementById('changePicButton');
+  changePicButton.style.display = "none";
+
+  const photoUpload = document.getElementById('photoUpload');
+  photoUpload.style.display = "inline";
+
+  const submitPhoto = document.getElementById('submitPhoto');
+  submitPhoto.style.display = "inline";
+});
+
+// submit photo form
+$(document).on("submit", "#photoForm", (e) => {
+  // prevent default form behavior (avoid the page reload)
+  e.preventDefault();
+
+  // Button that triggered the modal
+  const button = document.getElementById("submitPhoto");
+
+  // Extract info from data-* attributes
+  const id = button.getAttribute("data-id");
+  const formData = new FormData(e.target);
+
+  // get user's text data from the edit form
+  const nameInput = document.getElementById("userNameInput");
+  formData.name = nameInput.value;
+  const emailInput = document.getElementById("userEmailInput");
+  formData.email = emailInput.value;
+  const phoneInput = document.getElementById("userPhoneInput");
+  formData.phone = phoneInput.value;
+  const addressInput = document.getElementById("userAddressInput");
+  formData.address = addressInput.value;
+
+  console.log(formData);
+
+  $.ajax({
+    type: "PATCH",
+    url: `/users/${id}`,
+    crossDomain: true,
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: (data) => {
+      console.log("application request successful");
+
+      const changePicButton = document.getElementById('changePicButton');
+      changePicButton.style.display = "inline";
+
+      const photoUpload = document.getElementById('photoUpload');
+      photoUpload.style.display = "none";
+
+      const submitPhoto = document.getElementById('submitPhoto');
+      submitPhoto.style.display = "none";
+
+      const userPhoto = document.getElementById('userPhoto');
+      userPhoto.src = data.photo;
     },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);

@@ -18,3 +18,10 @@ datastore.runQuery(q).then((results) => {
   const entities = results[0];
   console.log(entities);
 });
+
+q = datastore.createQuery(kinds.USERS);
+
+datastore.runQuery(q).then((results) => {
+  const entities = results[0];
+  console.log(entities);
+});

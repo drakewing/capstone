@@ -1,0 +1,21 @@
+<style>
+#approveForm {
+    margin: 10px;
+}
+
+.list-group {
+    display: inline-block;
+}
+</style>
+
+<div class="container" id="heading">
+  <h1>Pending Applications</h1>
+
+  <div class="list-group list-group-flush">
+    {{#each apps}}
+        <div class="list-group-item"><a href="/applications/animals/{{this.animalID}}" class="btn btn-primary">User ID #{{this.userID}} applied for animal ID #{{this.animalID}}</a></div>
+    {{/each}}
+  </div>
+
+</div>
+

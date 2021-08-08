@@ -1,8 +1,10 @@
 $(document).ready(() => {
 // get user email, name, address
 // get user applications (need separate route /user/:id/application? or through get /user?)
-  const button = document.getElementById('editProfile');
+  const button = document.getElementById('submitPatch');
   const id = button.getAttribute("data-id");
+  button.style.display = "none";
+
   $.ajax({
     type: "GET",
     url: `/users/${id}/applications`,
@@ -61,4 +63,83 @@ $(document).on("show.bs.modal", (event) => {
   for (let i = 0; i < dispositionArray.length; i += 1) {
     $("#disposition").append($("<li>").text(dispositionArray[i]));
   }
+});
+
+// display text fields
+$(document).on("click", "#editProfile", () => {
+  console.log("edit button clicked");
+  const pencilButton = document.getElementById('editProfile');
+  pencilButton.style.display = "none";
+
+  const submitButton = document.getElementById('submitPatch');
+  submitButton.style.display = "inline";
+
+  const nameInput = document.getElementById("userNameInput");
+  nameInput.readOnly = false;
+  nameInput.className = "form-control";
+
+  const emailInput = document.getElementById("userEmailInput");
+  emailInput.readOnly = false;
+  emailInput.className = "form-control";
+
+  const phoneInput = document.getElementById("userPhoneInput");
+  phoneInput.readOnly = false;
+  phoneInput.className = "form-control";
+
+  const addressInput = document.getElementById("userAddressInput");
+  addressInput.readOnly = false;
+  addressInput.className = "form-control";
+});
+
+// submit edit form
+$(document).on("submit", "#editProfileForm", (e) => {
+  // prevent default form behavior (avoid the page reload)
+  e.preventDefault();
+
+  // Button that triggered the modal
+  const button = document.getElementById("submitPatch");
+
+  // Extract info from data-* attributes
+  const id = button.getAttribute("data-id");
+  const formData = new FormData(e.target);
+  console.log(formData);
+
+  $.ajax({
+    type: "PATCH",
+    url: `/users/${id}`,
+    crossDomain: true,
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: () => {
+      console.log("application request successful");
+
+      const pencilButton = document.getElementById('editProfile');
+      pencilButton.style.display = "inline-block";
+
+      const submitButton = document.getElementById('submitPatch');
+      submitButton.style.display = "none";
+
+      const nameInput = document.getElementById("userNameInput");
+      nameInput.readOnly = true;
+      nameInput.className = "form-control-plaintext";
+
+      const emailInput = document.getElementById("userEmailInput");
+      emailInput.readOnly = true;
+      emailInput.className = "form-control-plaintext";
+
+      const phoneInput = document.getElementById("userPhoneInput");
+      phoneInput.readOnly = true;
+      phoneInput.className = "form-control-plaintext";
+
+      const addressInput = document.getElementById("userAddressInput");
+      addressInput.readOnly = true;
+      addressInput.className = "form-control-plaintext";
+    },
+    error: (xhr, ajaxOptions, thrownError) => {
+      console.log(`xHR: ${xhr}`);
+      console.log(`ajaxOption: ${ajaxOptions}`);
+      console.log(`thrownError: ${thrownError}`);
+    },
+  });
 });

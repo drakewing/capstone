@@ -101,6 +101,15 @@ class User {
     callback(undefined, user);
     return user;
   }
+
+  static async updateUser(id, updates) {
+    const key = datastore.key([kinds.USERS, parseInt(id, 10)]);
+    let [user] = (await datastore.get(key));
+
+    user = Object.assign(user, updates);
+
+    await datastore.save(user);
+  }
 }
 
 module.exports.User = User;

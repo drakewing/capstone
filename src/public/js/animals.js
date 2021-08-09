@@ -170,25 +170,25 @@ $(document).on("show.bs.modal", (event) => {
   const dateCreated = button.getAttribute("data-dateCreated");
   const name = button.getAttribute("data-name");
   const id = button.getAttribute("data-id");
-  const photo = `${button.getAttribute("data-bucket")}/${button.getAttribute(
-    "data-photo"
-  )}`;
+  const bucketName = button.getAttribute("data-bucket");
+  const photoName = button.getAttribute("data-photo");
+  const photoURL = `${bucketName}/${photoName}`;
 
   // Update the modal's content
   $(".modal-title").text(name);
   const modalBody = $(".modal-body");
   const modalFooter = $(".modal-footer");
-  modalBody.find("#photo").attr("src", photo);
+  modalBody.find("#photo").attr("src", photoURL);
   modalBody.find("#gender").text(gender);
   modalBody.find("#age").text(age);
   modalBody.find("#species").text(species);
   modalBody.find("#breed").text(breed);
   modalBody.find("#availability").text(availability);
-  modalBody.find("#dateCreated").text(dateCreated);
+  modalBody.find("#dateCreated").text(dateCreated.substring(0, 10));
   modalFooter.find("#viewApps").attr("data-id", id);
   modalFooter.find("#deleteAnimal").attr("data-id", id);
   modalFooter.find("#adoptAnimal").attr("data-id", id);
-  modalFooter.find("#deleteAnimal").attr("data-photo", photo);
+  modalFooter.find("#deleteAnimal").attr("data-photo", photoName);
 
   const dispositionArray = disposition.split(",");
   $("#disposition").text("");
@@ -266,9 +266,12 @@ $(document).on("click", "#confirmDelete", () => {
   const photo = $("#deleteAnimal").attr("data-photo");
   const id = $("#deleteAnimal").attr("data-id");
 
+  console.log("logging photo from public js");
+  console.log(photo);
+
   $.ajax({
     type: "DELETE",
-    url: `/animals/${id}?photo=${photo}}`,
+    url: `/animals/${id}?photo=${photo}`,
     crossDomain: true,
     success: displayGrid,
     error: (xhr, ajaxOptions, thrownError) => {

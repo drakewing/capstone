@@ -91,7 +91,7 @@ router.get("/animals/:animalID", async (req, res) => {
     animalID: animal.id,
     applicationID: application.id,
     userID: user.id,
-    userName: user.Name,
+    userName: user.name,
     userEmail: user.email,
   };
 

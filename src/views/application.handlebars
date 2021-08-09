@@ -1,27 +1,39 @@
 <style>
-#approveForm {
+#approveForm, #rejectForm {
     margin: 10px;
 }
 </style>
 
 <div class="container" id="heading">
-  <h1>Pending Application</h1>
-  <h2>Animal Info</h2>
-  <p>Name: {{animalName}}</p>
-  <p>ID: {{animalID}}</p>
+    <h1>Pending Application</h1>
+</div>
 
-  <h2>User Info</h2>
-  <p>ID: {{userID}}</p>
-  <p>Name: {{userName}}</p>
-  <p>Email: {{userEmail}}</p>
-
-<form id="approveForm" method="POST" action="/applications/animals/{{animalID}}/approve">
-    <input type="submit" value="Approve">
-</form>
-
-<form id="rejectForm" method="POST" action="/applications/animals/{{animalID}}/reject">
-    <input type="submit" value="Reject">
-</form>
-
+<div class="card w-50 mx-auto">
+    <div class="card-body">
+        <div>
+            <h3>Animal Info</h3>
+            <p>Name: {{animalName}}</p>
+            <p>ID: {{animalID}}</p>
+            <hr>
+            <h3>User Info</h3>
+            <p>Name: {{userName}}</p>
+            <p>Email: {{userEmail}}</p>
+            <p>ID: {{userID}}</p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-2">
+                <form id="approveForm" method="POST" action="/applications/animals/{{animalID}}/approve">
+                    <input type="submit" class="btn btn-primary" value="Approve"/>
+                </form>
+            </div>
+            <div class="col-sm-2">
+                <form id="rejectForm" method="POST" action="/applications/animals/{{animalID}}/reject">
+                    <input type="submit" class="btn btn-secondary" value="Reject"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 

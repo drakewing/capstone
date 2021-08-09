@@ -482,7 +482,7 @@ animal31.Availability = availability.AVAILABLE;
 animal31.Photo = `${bucketName}955b8758-ede3-4e1a-9f3e-fd73f2e3eb1c.jpg`;
 saveAnimal(animal31);
 
-function saveUser(newUser) {
+/* function saveUser(newUser) {
   const userKey = datastore.key(kinds.USERS);
   datastore.save({ key: userKey, data: newUser });
 }
@@ -492,7 +492,7 @@ const user1 = {
   email: "janedoe@gmail.com",
   password: "asdfoweifjwoiefawpeoviaweoviajewovijwpovij",
 };
-saveUser(user1);
+saveUser(user1); */
 
 const buildUser = async (email, password) => {
   const user = new User();

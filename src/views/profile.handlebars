@@ -11,7 +11,7 @@
           {{#if user.photo}}
             <img src="{{bucketName}}/{{user.photo}}" id="userPhoto" class="card-img-top" alt="user photo">
           {{else}}
-            <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" id="stockPhoto" class="card-img-top" alt="user photo">
+            <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" id="userPhoto" class="card-img-top" alt="user photo">
           {{/if}}
           <div class="card-body">
             <input type="file" class="form-control" name='file' id="photoUpload" name="photo">
@@ -82,16 +82,18 @@
           </div>
         </form>
       </div>
-      <div class="card mb-3">
-        <div class="card-header">
-          Pending Applications
-        </div>
-        <div class="card-body">
-          <div class="col-sm-12 text-secondary">
-            <div class="row" id="userApps"></div>
+      {{#unless (isAdmin user.email)}}
+        <div class="card mb-3">
+          <div class="card-header">
+            My Pending Applications
+          </div>
+          <div class="card-body">
+            <div class="col-sm-12 text-secondary">
+              <div class="row" id="userApps"></div>
+            </div>
           </div>
         </div>
-      </div>
+      {{/unless}}
     </div>
   </div>
 </div> 

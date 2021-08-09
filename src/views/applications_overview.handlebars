@@ -1,21 +1,22 @@
-<style>
-#approveForm {
-    margin: 10px;
-}
-
-.list-group {
-    display: inline-block;
-}
-</style>
-
 <div class="container" id="heading">
   <h1>Pending Applications</h1>
-
-  <div class="list-group list-group-flush">
-    {{#each apps}}
-        <div class="list-group-item"><a href="/applications/animals/{{this.animalID}}" class="btn btn-primary">User ID #{{this.userID}} applied for animal ID #{{this.animalID}}</a></div>
-    {{/each}}
-  </div>
-
 </div>
+{{#each apps}}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card mb-3 w-50 mx-auto">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-11">
+          User ID #{{this.userID}} applied for animal ID #{{this.animalID}}
+          </div><div class="col-xxl-1">
+          <a href="/applications/animals/{{this.animalID}}"> <button class="btn btn-primary float-end">Select</button></a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <div class="container mt-3"><h3> No applications currently pending.</h3></div>
+{{/each}}
 

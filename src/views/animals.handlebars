@@ -30,8 +30,8 @@
               <span id="{{@key}}radioSpan">
                 {{#each this}}
                   <div class="form-check">
-                    <input class="form-check-input breed {{@../key}}Radio" type="radio" name="breedRadio" value="{{this}}" id="{{this}}Radio">
-                    <label class="form-check-label" for="{{this}}Radio">{{this}}</label>
+                    <input class="form-check-input breed {{@../key}}Radio" type="radio" name="breedRadio" value="{{this}}" id="{{@../key}}{{this}}Radio">
+                    <label class="form-check-label" for="{{@../key}}{{this}}Radio">{{this}}</label>
                   </div>
                 {{/each}}
               </span>

@@ -5,11 +5,13 @@ body {
 
 #heading {
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #footer {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 50px;
 }
 

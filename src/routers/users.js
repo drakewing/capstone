@@ -47,6 +47,7 @@ router.patch("/:id", multer.single('file'), async (req, res, next) => {
     User.updateUser(req.params.id, req.body);
     res.status(204).end();
   } else {
+    console.log("file uploaded");
     const filename = `${uuidv4()}.jpg`;
 
     // Create a new blob in the bucket and upload the file data.

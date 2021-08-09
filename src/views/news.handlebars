@@ -1,32 +1,44 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container" id="heading">
+  <h1>News</h1>
+</div>
 <div class="container">
-<div class="col-md-12 bootstrap snippets">
-<div class="panel">
-  <div class="panel-body">
-    <textarea class="form-control" rows="2" placeholder="Write a new news update"></textarea>
-    <div class="mar-top clearfix">
-    <div class="mb-3">
-      <input type="file" class="form-control" id="myFile" name="filename">
-    </div>
-
-      <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
-      {{!-- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-      <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-      <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a> --}}
+  <div class="col-md-12 bootstrap snippets">
+    <div class="panel">
+      {{#if (isAdmin user.email)}}
+      <div class="panel-body">
+        <textarea class="form-control mb-3" rows="2" placeholder="Write a new news update"></textarea>
+        <div class="mar-top clearfix">
+          <div class="mb-3">
+            <input type="file" class="form-control" id="myFile" name="filename">
+          </div>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </div>
+      {{/if}}
+      <div class="card mt-3">
+        <div class="card-body">
+        <button class="btn btn-sm btn-primary float-end" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+        <h4>Adoption Approved</h5>
+        <h6>Congrats!  We hope you enjoy your forever home.</h5>
+        </div><img src="https://storage.googleapis.com/capstone-project-318221.appspot.com/95401f95-9a89-4d4a-9279-301b054de9bf.jpg" class="card-img-bottom" alt="...">
+      </div>
+      <br>
+      <div class="card mt-3">
+        <div class="card-body">
+        <button class="btn btn-sm btn-primary float-end" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+        <h4>Adoption Approved</h4>
+        <h6>You found your match!  Good luck in your new home.</h6>
+        </div><img src="https://storage.googleapis.com/capstone-project-318221.appspot.com/92d1eca8-142d-467f-88e6-1161db890908.jpg" class="card-img-bottom" alt="...">
+      </div>
+      <div class="card mt-3">
+        <div class="card-body">
+        <button class="btn btn-sm btn-primary float-end" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+        <h4>New Animal</h4>
+        <h6>This little cutie won't be available for long!</h6>
+        </div><img src="https://storage.googleapis.com/capstone-project-318221.appspot.com/a982be7b-c6b1-4193-9820-5edd0a81df7f.jpg" class="card-img-bottom" alt="...">
+      </div>
     </div>
   </div>
-
-<div class="mb-3">
-      <paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab quaerat totam dignissimos ducimus eveniet quasi natus excepturi cupiditate officiis, sint, error reprehenderit? Consectetur impedit voluptas alias, ratione similique voluptatem hic.</paragraph>
-      <img src="/images/dog.jpg" class="d-block w-100" alt="...">
-</div>
-<br>
-<div class="mb-3">
-      <paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab quaerat totam dignissimos ducimus eveniet quasi natus excepturi cupiditate officiis, sint, error reprehenderit? Consectetur impedit voluptas alias, ratione similique voluptatem hic.</paragraph>
-      <img src="/images/dog.jpg" class="d-block w-100" alt="...">
-</div>
-
-</div>
-</div>
 </div>
 

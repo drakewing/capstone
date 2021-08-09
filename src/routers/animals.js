@@ -86,7 +86,10 @@ router.post("/", multer.single('file'), async (req, res, next) => {
 });
 
 router.delete("/:id", async (req, res) => {
+  console.log("logging req.query");
   console.log(req.query);
+  console.log("logging storageBucket.NAME");
+  console.log(storageBucket.NAME);
   await storage.bucket(storageBucket.NAME).file(req.query.photo).delete();
   await Animals.deleteAnimal(req.params.id);
   res.status(204).end();

@@ -1,6 +1,5 @@
 $(document).ready(() => {
-// get user email, name, address
-// get user applications (need separate route /user/:id/application? or through get /user?)
+// get user information for display
   const button = document.getElementById('submitPatch');
   const id = button.getAttribute("data-id");
   button.style.display = "none";
@@ -45,7 +44,7 @@ $(document).on("show.bs.modal", (event) => {
     "data-photo"
   )}`;
 
-  // Update the modal's content
+  // Update the modal's content for pending animal applications
   $(".modal-title").text(name);
   const modalBody = $(".modal-body");
   const modalFooter = $(".modal-footer");
@@ -71,7 +70,7 @@ $(document).on("show.bs.modal", (event) => {
   }
 });
 
-// display text fields
+// display text fields and hide pencil button
 $(document).on("click", "#editProfile", () => {
   const pencilButton = document.getElementById('editProfile');
   pencilButton.style.display = "none";
@@ -124,6 +123,7 @@ $(document).on("submit", "#editProfileForm", (e) => {
     success: () => {
       console.log("application request successful");
 
+      // hide text fields and display pencil button
       const pencilButton = document.getElementById('editProfile');
       pencilButton.style.display = "inline-block";
 
@@ -200,6 +200,7 @@ $(document).on("submit", "#photoForm", (e) => {
     success: (data) => {
       console.log("application request successful");
 
+      // hide photo upload and submit buttons, display button to change pic
       const changePicButton = document.getElementById('changePicButton');
       changePicButton.style.display = "inline";
 

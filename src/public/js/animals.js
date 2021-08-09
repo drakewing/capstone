@@ -128,8 +128,7 @@ $(document).on("click", ".form-check-input.species", () => {
   }
 });
 
-// continuously watches the css selectors for the click event
-// $( this ) will refer to the entire document not the button
+// page through animals
 $(document).on("click", "#prev,#next", (event) => {
   console.log(event.target.id);
   const direction = event.target.id;

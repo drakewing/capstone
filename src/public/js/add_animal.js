@@ -27,7 +27,6 @@ $('#addAnimal').submit((e) => {
   e.preventDefault();
 
   // get the data from the user
-  // const formData = $("#animalForm").serializeObject();
   const formData = new FormData(e.target);
 
   console.log(formData);

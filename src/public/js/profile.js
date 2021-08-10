@@ -211,7 +211,9 @@ $(document).on("submit", "#photoForm", (e) => {
       submitPhoto.style.display = "none";
 
       const userPhoto = document.getElementById('userPhoto');
+      console.log(data);
       userPhoto.src = data.photo;
+      console.log(userPhoto.src);
     },
     error: (xhr, ajaxOptions, thrownError) => {
       console.log(`xHR: ${xhr}`);

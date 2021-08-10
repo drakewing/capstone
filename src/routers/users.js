@@ -65,7 +65,7 @@ router.patch("/:id", multer.single('file'), async (req, res, next) => {
       console.log(req.body);
       req.body.photo = `${blob.name}`;
       User.updateUser(req.params.id, req.body);
-      res.json({ photo: `${storageBucket.NAME}/${blob.name}` });
+      res.json({ photo: `${storageBucket.URL}/${blob.name}` });
     });
 
     blobStream.end(req.file.buffer);
